@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react';
 import background_image from '../assets/background_image.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import { AuthContext } from '../context/AuthContext';
+import { useApp } from '../context/AppContext'
 
 function LoginPage() {
   const navigate = useNavigate();
-//   const { setUser } = useContext(AuthContext);
+  const {guest, setGuest} = useApp()
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [email, setEmail] = useState('');
@@ -33,7 +33,11 @@ function LoginPage() {
         email: email,
         password: password
       })
-      console.log(response.data)
+
+      if (response.status === 200) {
+        setGuest(false);
+        navigate('/main');
+      }
 
     } catch (err) {
       setAlertMessage('Invalid credentials');
@@ -62,6 +66,11 @@ function LoginPage() {
     setIsPasswordValid(validatePassword(value));
   };
 
+  const handleClick = () => {
+    setGuest(true);
+    navigate('/main')
+  }
+
   return (
     <div className='container-fluid'>
         <div
@@ -86,6 +95,7 @@ function LoginPage() {
                 ></button>
                 </div>
             )}
+            <button onClick={handleClick} className='mt-4 ms-3 position-absolute btn btn-light border border-2 rounded-pill'><i className="bi bi-person-circle"> Guest</i></button>
 
             <p className='mb-2 text-muted fs-5 text-center'>Start your journey!</p>
             <h1 className='display-6 mb-4 fw-normal text-center'>Login</h1>

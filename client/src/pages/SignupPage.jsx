@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import background_image from '../assets/background_image.webp'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import { AuthContext } from '../context/AuthContext';
+import { useApp } from '../context/AppContext'
 
 function SignupPage() {
   const navigate = useNavigate();
-//   const { setUser } = useContext(AuthContext);
+  const {setGuest} = useApp();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [email, setEmail] = useState('');
@@ -43,7 +43,10 @@ function SignupPage() {
         email: email,
         password: password
       })
-      console.log(response.data)
+      if (response.status === 201) {
+        setGuest(false);
+        navigate('/main');
+      }
 
     } catch (err) {
       setAlertMessage(err.response?.data?.message || 'Registration failed');

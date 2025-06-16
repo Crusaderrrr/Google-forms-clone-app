@@ -1,0 +1,13 @@
+{
+    "navbar": {
+        "theApp": "The App",
+        "language": "Language",
+        "langDropdown": {
+            "English": "English",
+            "Spanish": "Spanish"
+        },
+        "myProfile": "My Profile",
+        "login": "Log In",
+        "search": "Search"
+    }
+}
