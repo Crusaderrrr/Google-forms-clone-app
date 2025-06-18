@@ -4,10 +4,6 @@ import { useApp } from '../context/AppContext'
 function MyProfileInfo () {
     const {email, name, profileImg} = useApp();
 
-    useEffect(() => {
-    
-    }, [])
-
 return (
     <div className="card mb-4 shadow-sm">
         <div className="card-body d-flex align-items-center">
