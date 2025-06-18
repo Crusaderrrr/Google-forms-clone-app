@@ -8,7 +8,7 @@ function TemplateSection({ title, templates }) {
         {templates.map(tpl => (
           <div className="col-md-6 col-lg-4 mb-4" key={tpl.id}>
             <div className="card h-100">
-              <img src={tpl.image} className="card-img-top" alt={tpl.title} />
+              <img src={tpl.image} className="card-img-top" alt={tpl.title + ' Image'} />
               <div className="card-body">
                 <h5 className="card-title">{tpl.title}</h5>
                 <div>

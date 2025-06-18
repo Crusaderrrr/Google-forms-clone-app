@@ -9,5 +9,12 @@
         "myProfile": "My Profile",
         "login": "Log In",
         "search": "Search"
+    },
+    "myProfile": {
+        "myTemplates": "My Templates",
+        "myForms": "My Forms"
+    },
+    "main": {
+        "latest": "Latest Templates"
     }
 }

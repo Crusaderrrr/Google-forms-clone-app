@@ -9,5 +9,12 @@
         "myProfile": "Mi Perfil",
         "login": "Iniciar Sesión",
         "search": "Buscar"
+    },
+    "myProfile": {
+        "myTemplates": "Mis Plantillas",
+        "myForms": "Mis Formularios"
+    },
+    "main": {
+        "latest": "Últimas Plantillas"
     }
 }

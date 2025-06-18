@@ -8,7 +8,7 @@ function FormSection({ title, forms }) {
         {forms.map(form => (
           <div className="col-md-6 col-lg-4 mb-4" key={form.id}>
             <div className="card h-100">
-              <img src={form.image} className="card-img-top" alt={form.title} />
+              <img src={form.image} className="card-img-top" alt={form.title + ' Image'} />
               <div className="card-body">
                 <h5 className="card-title">{form.title}</h5>
                 <p className="card-text">
