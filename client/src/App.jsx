@@ -8,7 +8,6 @@ import MyProfilePage from './pages/MyProfilePage';
 
 
 function App() {
-
   return (
   <AppProvider>
     <Routes>

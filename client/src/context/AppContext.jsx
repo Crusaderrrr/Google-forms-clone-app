@@ -29,6 +29,7 @@ export function AppProvider({ children }) {
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute("data-bs-theme", theme);
     }, [theme]);
 
     useEffect(() => {
