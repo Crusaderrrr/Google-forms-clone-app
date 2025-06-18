@@ -66,9 +66,15 @@ function LoginPage() {
     setIsPasswordValid(validatePassword(value));
   };
 
-  const handleClick = () => {
-    setGuest(true);
-    navigate('/main')
+  const handleGuestSet = async () => {
+    const response = await axios.post('http://localhost:5000/api/auth/guest', {
+      guestState: true
+    });
+
+    if (response.status === 200) {
+      setGuest(true);
+      navigate('/main')
+    }
   }
 
   return (
@@ -95,7 +101,7 @@ function LoginPage() {
                 ></button>
                 </div>
             )}
-            <button onClick={handleClick} className='mt-4 ms-3 position-absolute btn btn-light border border-2 rounded-pill'><i className="bi bi-person-circle"> Guest</i></button>
+            <button onClick={handleGuestSet} className='mt-4 ms-3 position-absolute btn btn-light border border-2 rounded-pill'><i className="bi bi-person-circle"> Guest</i></button>
 
             <p className='mb-2 text-muted fs-5 text-center'>Start your journey!</p>
             <h1 className='display-6 mb-4 fw-normal text-center'>Login</h1>
