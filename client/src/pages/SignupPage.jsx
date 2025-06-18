@@ -16,6 +16,10 @@ function SignupPage() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
+    useEffect(() => {
+      setTheme('light')
+    }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import background_image from '../assets/background_image.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,12 +6,16 @@ import { useApp } from '../context/AppContext'
 
 function LoginPage() {
   const navigate = useNavigate();
-  const {setGuest, email, setEmail, setName} = useApp()
+  const {setGuest, email, setEmail, setName, setTheme} = useApp()
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+  useEffect(() => {
+    setTheme('light')
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
