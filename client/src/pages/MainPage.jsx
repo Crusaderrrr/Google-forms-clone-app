@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TemplateSection from '../components/TemplateSection';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const templates = [{id: 1, title: 'Main Page Test Template', tags: ['#test_tag_1', '#test_tag_2']}]
 
 function MainPage () {
     const {t, i18n} = useTranslation();
+    const navigate = useNavigate();
 
     return (
     <>

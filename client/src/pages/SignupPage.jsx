@@ -6,7 +6,7 @@ import { useApp } from '../context/AppContext'
 
 function SignupPage() {
   const navigate = useNavigate();
-  const {setGuest} = useApp();
+  const {setRole} = useApp();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [email, setEmail] = useState('');
@@ -48,7 +48,7 @@ function SignupPage() {
         password: password
       })
       if (response.status === 201) {
-        setGuest(false);
+        setRole('user');
         navigate('/main');
       }
 

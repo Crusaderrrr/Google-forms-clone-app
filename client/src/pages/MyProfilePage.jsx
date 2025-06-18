@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MyProfileInfo from '../components/MyProfileInfo';
 import FormSection from '../components/FormSection';
 import TemplateSection from '../components/TemplateSection';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const templates = [{id: 1, title: 'Test Template', tags: ['#test_tag_1', '#test_tag_2']}]
 const forms = [{id: 1, title: 'Test Form', filledAt: '01.02.2025'}]
 
 function MyProfilePage () {
     const {t, i18n} = useTranslation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.getItem('role') === 'guest') {
+            navigate('/login')
+        }
+    }, [])
 
     return (
     <div className="container-fluid mt-5">

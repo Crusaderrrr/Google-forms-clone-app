@@ -4,7 +4,7 @@ import NavLink from './NavLink';
 import { useTranslation } from 'react-i18next';
 
 function Navbar () {
-    const {guest, setGuest, theme, setTheme, language, setLanguage} = useApp();
+    const {role, setRole, theme, setTheme, language, setLanguage} = useApp();
     const {t, i18n} = useTranslation();
 
     const toggleTheme = () => {
@@ -43,13 +43,13 @@ function Navbar () {
             to="/myProfile" 
             labelKey={t('navbar.myProfile')}
             icon={<i className="bi bi-person-fill"></i>}
-            visible={!guest}
+            visible={role !== 'guest'}
             />
             <NavLink
             to='/login'
             labelKey={t('navbar.login')}
             icon={<i className="bi bi-person"></i>}
-            visible={guest}
+            visible={role === 'guest'}
             />
         </ul>
         <form className="d-flex">

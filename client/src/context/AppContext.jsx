@@ -10,7 +10,7 @@ function getStored(key, defaultValue) {
 }
 
 export function AppProvider({ children }) {
-    const [guest, setGuest] = useState(() => getStored('guest', 'false') === 'true');
+    const [role, setRole] = useState(() => getStored('role', 'guest'));
     const [name, setName] = useState(() => getStored('name', ''));
     const [email, setEmail] = useState(() => getStored('email', ''));
     const [profileImg, setProfileImg] = useState(() =>
@@ -21,11 +21,11 @@ export function AppProvider({ children }) {
     const [loading, setLoading] = useState(false); 
 
     useEffect(() => {
-        localStorage.setItem('guest', guest);
+        localStorage.setItem('role', role);
         localStorage.setItem('name', name);
         localStorage.setItem('email', email);
         localStorage.setItem('profileImg', profileImg);
-    }, [guest, name, email, profileImg]);
+    }, [role, name, email, profileImg]);
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
@@ -39,7 +39,7 @@ export function AppProvider({ children }) {
 
     return (
         <AppContext.Provider value={{
-            guest, setGuest,
+            role, setRole,
             loading,
             theme, setTheme,
             language, setLanguage,
