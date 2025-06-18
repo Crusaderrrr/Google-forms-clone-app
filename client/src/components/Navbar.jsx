@@ -40,7 +40,7 @@ function Navbar () {
             </ul>
             </li>
             <NavLink 
-            to="/profile" 
+            to="/myProfile" 
             labelKey={t('navbar.myProfile')}
             icon={<i className="bi bi-person-fill"></i>}
             visible={!guest}

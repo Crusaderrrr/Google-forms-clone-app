@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MainPage from './pages/MainPage'
 import LayoutWithNavbar from './components/LayoutWithNavbar';
+import MyProfilePage from './pages/MyProfilePage';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path='/signup' element={<SignupPage/>}/>
       <Route element={<LayoutWithNavbar />}>
         <Route path='/main' element={<MainPage/>}/>
+        <Route path='/myProfile' element={<MyProfilePage/>}/>
       </Route>
     </Routes>
   </AppProvider>

@@ -6,10 +6,9 @@ import { useApp } from '../context/AppContext'
 
 function LoginPage() {
   const navigate = useNavigate();
-  const {guest, setGuest} = useApp()
+  const {setGuest, email, setEmail, setName} = useApp()
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
@@ -35,6 +34,8 @@ function LoginPage() {
       })
 
       if (response.status === 200) {
+        console.log(response.data.user.name)
+        setName(response.data.user.name);
         setGuest(false);
         navigate('/main');
       }

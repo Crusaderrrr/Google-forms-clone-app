@@ -1,48 +1,50 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import i18n from '../i18n';
+import default_profile_image from '../assets/default_profile_image.jpg';
 
 const AppContext = createContext();
 
+function getStored(key, defaultValue) {
+    const stored = localStorage.getItem(key);
+    return stored !== null ? stored : defaultValue;
+}
+
 export function AppProvider({ children }) {
-    const [guest, setGuest] = useState(null); 
-    const [loading, setLoading] = useState(true); 
+    const [guest, setGuest] = useState(() => getStored('guest', 'false') === 'true');
+    const [name, setName] = useState(() => getStored('name', ''));
+    const [email, setEmail] = useState(() => getStored('email', ''));
+    const [profileImg, setProfileImg] = useState(() =>
+        getStored('profileImg', default_profile_image)
+    );
+    const [theme, setTheme] = useState(() => getStored('theme', 'light'));
+    const [language, setLanguage] = useState(() => getStored('language', 'en'));
+    const [loading, setLoading] = useState(false); 
 
     useEffect(() => {
-        const storedGuest = localStorage.getItem('guest') === 'true';
-        setGuest(storedGuest);
-        setLoading(false); 
-    }, []);
-
-    useEffect(() => {
-        if (guest !== null) { 
-            localStorage.setItem('guest', guest);
-        }
-    }, [guest]);
-
-    const [theme, setTheme] = useState(() => {
-        const storedTheme = localStorage.getItem('theme') || 'light';
-        return storedTheme;
-    });
-    
-    const [language, setLanguage] = useState(() => {
-        return localStorage.getItem('language') || 'en';
-    });
-
-    useEffect(() => {
-        localStorage.setItem('language', language);
-        i18n.changeLanguage(language); 
-    }, [language]);
+        localStorage.setItem('guest', guest);
+        localStorage.setItem('name', name);
+        localStorage.setItem('email', email);
+        localStorage.setItem('profileImg', profileImg);
+    }, [guest, name, email, profileImg]);
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
     }, [theme]);
 
+    useEffect(() => {
+        localStorage.setItem('language', language);
+        i18n.changeLanguage(language);
+    }, [language]);
+
     return (
         <AppContext.Provider value={{
             guest, setGuest,
-            loading, 
+            loading,
             theme, setTheme,
-            language, setLanguage
+            language, setLanguage,
+            email, setEmail,
+            name, setName,
+            profileImg, setProfileImg
         }}>
             {children}
         </AppContext.Provider>
