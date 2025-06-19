@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import background_image from '../assets/background_image.webp'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,10 +6,9 @@ import { useApp } from '../context/AppContext'
 
 function SignupPage() {
   const navigate = useNavigate();
-  const {setRole} = useApp();
+  const {setRole, setTheme, email, setEmail, setName} = useApp();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
-  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isUsernameValid, setIsUsernameValid] = useState('');
@@ -49,6 +48,8 @@ function SignupPage() {
       })
       if (response.status === 201) {
         setRole('user');
+        setEmail(email);
+        setName(username);
         navigate('/main');
       }
 
