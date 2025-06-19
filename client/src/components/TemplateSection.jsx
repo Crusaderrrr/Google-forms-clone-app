@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
 function TemplateSection({ title, templates }) {
-
   const [selectedTemplates, setSelectedTemplates] = useState([]);
-
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -42,12 +40,12 @@ function TemplateSection({ title, templates }) {
                 checked={selectedTemplates.includes(tpl.id)}
                 onChange={() => handleCheckboxChange(tpl.id)}
               />
-              <img src={tpl.image} className="card-img-top" alt={tpl.title + ' Image'} />
+              <img src={tpl.imageUrl} className="card-img-top" alt={tpl.title + ' Image'} />
               <div className="card-body">
                 <h5 className="card-title">{tpl.title}</h5>
                 <div>
-                  {tpl.tags.map(tag => (
-                    <span className="badge bg-primary me-1" key={tag}>{tag}</span>
+                  {tpl.tags?.map(tag => (
+                    <span className="badge bg-primary me-1" key={tag.id}>{tag.name}</span>
                   ))}
                 </div>
               </div>

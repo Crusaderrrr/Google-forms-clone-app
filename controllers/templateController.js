@@ -2,10 +2,11 @@ const prisma = require('../prisma/prismaClient')
 
 exports.getAllTemplates = async (req, res) => {
     try {
-        if (req.session.user.role !== 'guest') {
+        if (req.session.user && req.session.user.role !== 'guest') {
             const userId = req.session.user.id;
             const templates = await prisma.template.findMany({
-                where: { userId }
+                where: { userId },
+                include: {tags: true}
             });
             res.status(200).json({message: 'All templates fetch successful', templates: templates})
         } else {

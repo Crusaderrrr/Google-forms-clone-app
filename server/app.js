@@ -8,13 +8,16 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extend: true }));
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(
   session({
     secret: process.env.SESSION_SECRET_KEY,       
     resave: false,                 
     saveUninitialized: false,      
-    cookie: { maxAge: 60 * 60 * 1000 } 
+    cookie: { maxAge: 60 * 60 * 1000, secure: false } 
   })
 );
 

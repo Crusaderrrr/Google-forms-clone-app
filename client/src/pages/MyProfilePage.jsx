@@ -5,22 +5,41 @@ import TemplateSection from '../components/TemplateSection';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import test_img from '../assets/background_image.webp'
+import axios from 'axios';
+import { useApp } from '../context/AppContext'
 
-const templates = [{id: 1, title: 'Test Template 1', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}, 
-    {id: 2, title: 'Test Template 2', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}, 
-    {id: 3, title: 'Test Template 3', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}]
+// const templates = [{id: 1, title: 'Test Template 1', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}, 
+//     {id: 2, title: 'Test Template 2', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}, 
+//     {id: 3, title: 'Test Template 3', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}]
 const forms = [{id: 1, title: 'Test Form', filledAt: '01.02.2025', image: test_img}]
 
 function MyProfilePage () {
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const [templates, setTemplates] = useState([]);
     const [activeSection, setActiveSection] = useState('templates');
+    const {role} = useApp();
 
     useEffect(() => {
-        if (localStorage.getItem('role') === 'guest') {
-            navigate('/login')
+    const fetchTemplates = async () => {
+      if (role === 'guest') {
+        navigate('/login');
+      } else {
+        try {
+          const response = await axios.get('http://localhost:5000/api/templates/myTemplates', {
+            withCredentials: true,
+          });
+          if (response.status === 200) {
+            console.log(response.data)
+            setTemplates(response.data.templates)
+          }
+        } catch (err) {
+          console.error(err);
         }
-    }, [])
+      }
+    };
+    fetchTemplates();
+  }, [role, navigate]);
 
     const handleTplSet = () => {
         setActiveSection('templates')

@@ -35,10 +35,11 @@ function LoginPage() {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
         email: email,
         password: password
-      })
+      }, 
+      { withCredentials: true })
 
       if (response.status === 200) {
-        console.log(response.data.user.name)
+        console.log(response.data)
         setName(response.data.user.name);
         setRole('user');
         navigate('/main');
