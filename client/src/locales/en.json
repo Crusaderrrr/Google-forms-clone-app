@@ -12,7 +12,12 @@
     },
     "myProfile": {
         "myTemplates": "My Templates",
-        "myForms": "My Forms"
+        "templates": "Templates",
+        "createTemplate": "Create Template",
+        "deleteTemplate": "Delete selected templates",
+        "myForms": "My Forms",
+        "forms": "forms"
+
     },
     "main": {
         "latest": "Latest Templates"

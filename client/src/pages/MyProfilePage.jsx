@@ -61,24 +61,24 @@ function MyProfilePage () {
                         className={`btn ${activeSection === 'templates' ? 'btn-primary' : 'btn-outline-primary'} btn-lg w-100`}
                         onClick={handleTplSet}
                         >
-                        Templates
+                        {t("myProfile.templates")}
                     </button>
                     <button 
                         type="button" 
                         className={`btn ${activeSection === 'forms' ? 'btn-primary' : 'btn-outline-primary'} btn-lg w-100`}
                         onClick={handleFormsSet}
                         >
-                        Forms
+                        {t("myProfile.forms")}
                     </button>
                 </div>
             </div>
             <hr className="my-4" />
             <div>
                 {activeSection === 'templates' && (
-                    <TemplateSection title="Templates" templates={templates} />
+                    <TemplateSection title={t("myProfile.myTemplates")} templates={templates} />
                 )}
                 {activeSection === 'forms' && (
-                    <FormSection title="Forms" forms={forms} />
+                    <FormSection title={t("myProfile.myForms")} forms={forms} />
                 )}
             </div>
         </div>

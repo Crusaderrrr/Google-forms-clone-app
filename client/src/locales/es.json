@@ -12,7 +12,11 @@
     },
     "myProfile": {
         "myTemplates": "Mis Plantillas",
-        "myForms": "Mis Formularios"
+        "templates": "Plantillas",
+        "createTemplate": "Crear plantilla",
+        "deleteTemplate": "Eliminar plantillas eligidas",
+        "myForms": "Mis Formularios",
+        "forms": "Mis Formularios"
     },
     "main": {
         "latest": "Últimas Plantillas"
