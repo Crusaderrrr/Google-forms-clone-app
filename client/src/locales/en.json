@@ -16,7 +16,8 @@
         "createTemplate": "Create Template",
         "deleteTemplate": "Delete selected templates",
         "myForms": "My Forms",
-        "forms": "forms"
+        "forms": "forms",
+        "selectAll": "Select all"
 
     },
     "main": {

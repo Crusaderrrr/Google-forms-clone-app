@@ -5,6 +5,7 @@ import SignupPage from './pages/SignupPage';
 import MainPage from './pages/MainPage'
 import LayoutWithNavbar from './components/LayoutWithNavbar';
 import MyProfilePage from './pages/MyProfilePage';
+import SingleTemplatePage from './pages/SingleTemplatePage';
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
       <Route element={<LayoutWithNavbar />}>
         <Route path='/main' element={<MainPage/>}/>
         <Route path='/myProfile' element={<MyProfilePage/>}/>
+        <Route path='/template/create' element={<SingleTemplatePage />} />
+        <Route path='/template/:id' element={<SingleTemplatePage />} /> 
       </Route>
     </Routes>
   </AppProvider>

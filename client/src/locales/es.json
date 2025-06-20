@@ -16,7 +16,8 @@
         "createTemplate": "Crear plantilla",
         "deleteTemplate": "Eliminar plantillas eligidas",
         "myForms": "Mis Formularios",
-        "forms": "Mis Formularios"
+        "forms": "Mis Formularios",
+        "selectAll": "Eligir todo"
     },
     "main": {
         "latest": "Últimas Plantillas"

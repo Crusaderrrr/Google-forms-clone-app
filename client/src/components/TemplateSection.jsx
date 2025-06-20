@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
+import '../style/CardHover.css';
 
 function TemplateSection({ title, templates }) {
   const [selectedTemplates, setSelectedTemplates] = useState([]);
@@ -25,7 +26,7 @@ function TemplateSection({ title, templates }) {
   };
 
   const handleCreateTemplate = () => {
-    navigate('/')
+    navigate('/template/create')
   };
 
   const handleDeleteTemplates = () => {
@@ -58,12 +59,17 @@ function TemplateSection({ title, templates }) {
       <div className="row mt-2">
         {templates.map(tpl => (
           <div className="col-md-4 col-lg-4 mb-4 col-sm-6" key={tpl.id}>
-            <div className="card h-100">
+            <div
+              className="card h-100 card-hover"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate(`/template/${tpl.id}`)}
+            >
               <input
                 type="checkbox"
                 className="form-check-input position-absolute"
                 style={{ top: "10px", left: "15px", zIndex: 2 }}
                 checked={selectedTemplates.includes(tpl.id)}
+                onClick={e => e.stopPropagation()} 
                 onChange={() => handleCheckboxChange(tpl.id)}
               />
               <img src={tpl.imageUrl} className="card-img-top" alt={tpl.title + ' Image'} />
