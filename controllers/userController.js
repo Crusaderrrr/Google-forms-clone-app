@@ -4,10 +4,10 @@ const bcrypt = require('bcryptjs');
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await prisma.user.findUnique({ where: { email } });
+
     if (!user) {
-      return res.status(401).json({ message: 'User not found' });
+      return res.status(401).json({ message: `User doesn't exist`});
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
@@ -15,9 +15,15 @@ exports.login = async (req, res) => {
       return res.status(401).json({message: 'Invalid Password'})
     }
 
-    req.session.user = {id: user.id, name: user.name, email: user.email, role: user.role};
+    req.session.user = {
+      id: user.id, 
+      name: user.name, 
+      email: user.email,
+      isAdmin: user.isAdmin,
+      role: 'user'
+    };
 
-    res.status(200).json({ message: 'Login successful', user: { id: user.id, name: user.name, email: user.email, role: user.role} });
+    res.status(200).json({ message: 'Login successful', user: { id: user.id, name: user.name, email: user.email, isAdmin: user.isAdmin, role: req.session.user.role}});
   } catch (err) {
     res.status(500).json({ message: 'Error during login', error: err.message });
   }
@@ -36,7 +42,7 @@ exports.signup = async (req, res) => {
         data: { name: name, email: email, password: await bcrypt.hash(password, 10) }
       });
 
-      req.session.user = { id: user.id, name: user.name, email: user.email, role: 'user'};
+      req.session.user = { id: user.id, name: user.name, email: user.email };
 
       res.status(201).json({ message: 'Signup successful', user: { id: user.id, name: user.name, email: user.email } });
     }

@@ -3,7 +3,7 @@ import TemplateSection from '../components/TemplateSection';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-const templates = [{id: 1, title: 'Main Page Test Template', tags: ['#test_tag_1', '#test_tag_2']}]
+const templates = [{id: 1, title: 'Main Page Test Template', tags: [{ templateId: 11, tagId: 10, tag: { id: 8, name: "Tag1" } }, { templateId: 10, tagId: 9, tag: { id: 9, name: "Tag2" } }]}]
 
 function MainPage () {
     const {t, i18n} = useTranslation();

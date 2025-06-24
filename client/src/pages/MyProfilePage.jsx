@@ -8,22 +8,22 @@ import test_img from '../assets/background_image.webp'
 import axios from 'axios';
 import { useApp } from '../context/AppContext'
 
-// const templates = [{id: 1, title: 'Test Template 1', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}, 
-//     {id: 2, title: 'Test Template 2', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}, 
-//     {id: 3, title: 'Test Template 3', tags: ['#test_tag_1', '#test_tag_2'], image: test_img}]
 const forms = [{id: 1, title: 'Test Form', filledAt: '01.02.2025', image: test_img}]
 
 function MyProfilePage () {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [templates, setTemplates] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [activeSection, setActiveSection] = useState('templates');
     const {role} = useApp();
 
     useEffect(() => {
     const fetchTemplates = async () => {
+      setLoading(true);
       if (role === 'guest') {
         navigate('/login');
+        setLoading(false);
       } else {
         try {
           const response = await axios.get('http://localhost:5000/api/templates/myTemplates', {
@@ -35,6 +35,8 @@ function MyProfilePage () {
           }
         } catch (err) {
           console.error(err);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -75,7 +77,7 @@ function MyProfilePage () {
             <hr className="my-4" />
             <div>
                 {activeSection === 'templates' && (
-                    <TemplateSection title={t("myProfile.myTemplates")} templates={templates} />
+                    <TemplateSection title={t("myProfile.myTemplates")} templates={templates} loading={loading}/>
                 )}
                 {activeSection === 'forms' && (
                     <FormSection title={t("myProfile.myForms")} forms={forms} />

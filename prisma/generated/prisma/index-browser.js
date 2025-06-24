@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.9.0
- * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+ * Prisma Client JS version: 6.10.1
+ * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
  */
 Prisma.prismaVersion = {
-  client: "6.9.0",
-  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
+  client: "6.10.1",
+  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -122,11 +122,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  email: 'email',
   name: 'name',
+  email: 'email',
   password: 'password',
-  createdAt: 'createdAt',
-  role: 'role'
+  isAdmin: 'isAdmin',
+  isBlocked: 'isBlocked',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.TemplateScalarFieldEnum = {
@@ -135,14 +136,31 @@ exports.Prisma.TemplateScalarFieldEnum = {
   description: 'description',
   topic: 'topic',
   imageUrl: 'imageUrl',
+  isPublic: 'isPublic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userId: 'userId'
+  authorId: 'authorId'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   name: 'name'
+};
+
+exports.Prisma.TemplateTagScalarFieldEnum = {
+  templateId: 'templateId',
+  tagId: 'tagId'
+};
+
+exports.Prisma.QuestionScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  showInTable: 'showInTable',
+  enabled: 'enabled',
+  order: 'order'
 };
 
 exports.Prisma.SortOrder = {
@@ -159,12 +177,19 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.QuestionType = exports.$Enums.QuestionType = {
+  singleLine: 'singleLine',
+  multiLine: 'multiLine',
+  integer: 'integer',
+  checkbox: 'checkbox'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Template: 'Template',
-  Tag: 'Tag'
+  Tag: 'Tag',
+  TemplateTag: 'TemplateTag',
+  Question: 'Question'
 };
 
 /**
