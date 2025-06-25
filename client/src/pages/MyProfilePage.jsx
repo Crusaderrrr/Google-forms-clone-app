@@ -19,27 +19,27 @@ function MyProfilePage () {
     const {role} = useApp();
 
     useEffect(() => {
-    const fetchTemplates = async () => {
-      setLoading(true);
-      if (role === 'guest') {
-        navigate('/login');
-        setLoading(false);
-      } else {
-        try {
-          const response = await axios.get('http://localhost:5000/api/templates/myTemplates', {
-            withCredentials: true,
-          });
-          if (response.status === 200) {
-            console.log(response.data)
-            setTemplates(response.data.templates)
-          }
-        } catch (err) {
-          console.error(err);
-        } finally {
+      const fetchTemplates = async () => {
+        setLoading(true);
+        if (role === 'guest') {
+          navigate('/login');
           setLoading(false);
+        } else {
+          try {
+            const response = await axios.get('http://localhost:5000/api/templates/myTemplates', {
+              withCredentials: true,
+            });
+            if (response.status === 200) {
+              console.log(response.data)
+              setTemplates(response.data.templates)
+            }
+          } catch (err) {
+            console.error(err);
+          } finally {
+            setLoading(false);
+          }
         }
-      }
-    };
+      };
     fetchTemplates();
   }, [role, navigate]);
 

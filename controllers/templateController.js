@@ -86,3 +86,24 @@ exports.createTemplate = async (req, res) => {
         res.status(500).json({ message: 'Error during template creation', error: err.message })
     }
 };
+
+exports.getLatestTemplates = async (req, res) => {
+    try {
+        if (req.session.user && req.session.user.role !== 'guest') {
+            const templates = await prisma.template.findMany({
+                orderBy: { createdAt: 'desc' },
+                take: 5,
+                include: {
+                    tags: { include: { tag: true }},
+                    questions: true,
+                    author: true
+                } 
+            });
+            res.status(200).json({ message: 'Latest templates fetched', templates })
+        } else {
+            res.status(401).json({ message: 'Unauthorized on fetching latest templates' })
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Server error on fetching latest', error: err.message })
+    }
+};
