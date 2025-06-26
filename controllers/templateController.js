@@ -107,3 +107,65 @@ exports.getLatestTemplates = async (req, res) => {
         res.status(500).json({ message: 'Server error on fetching latest', error: err.message })
     }
 };
+
+exports.deleteTemplates = async (req, res) => {
+    try {
+        const { templateIds } = req.body;
+        if (!Array.isArray(templateIds) || templateIds.length === 0 || req.session.user.role === 'guest') {
+            return res.status(400).json({ message: 'No templates selected for deletion' })
+        }
+
+        const templates = await prisma.template.findMany({
+            where: { id: { in: templateIds } },
+            select: { imageUrl: true }
+        })
+
+        for (const template of templates) {
+            if (
+                template.imageUrl &&
+                template.imageUrl.includes("cloudinary") && 
+                !template.imageUrl.includes("template_default_img")
+            ) {
+                const parts = template.imageUrl.split('/');
+                const fileWithExt = parts[parts.length - 1];
+                const folder = parts[parts.length - 2];
+                const publicId = `${folder}/${fileWithExt.split('.')[0]}`;
+
+                try {
+                    await cloudinary.uploader.destroy(publicId)
+                } catch (cloudErr) {
+                    console.warn(`Cloudinary deletion failed for ${publicId}:`, cloudErr.message);
+                }
+            }
+        }
+        await prisma.template.deleteMany({
+            where: { id: { in: templateIds } }
+        });
+        res.status(200).json({ message: 'Templates deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error deleting templates', error: err.message })
+    }
+}; 
+
+exports.getTemplateById = async (req, res) => {
+    try {
+        if (req.session.user && req.session.user.role !== 'guest') {
+            const template = await prisma.template.findUnique({
+                where : { id: Number(req.params.id) },
+                include: {
+                    tags: { include: { tag: true } },
+                    questions: true,
+                    author: true
+                }
+            });
+            if (!template) {
+                return res.status(404).json({ message: 'Template not found' });
+            }
+            return res.status(200).json({ message: 'Template found', template });
+        } else {}
+        res.status(401).json({ message: 'Unauthorized on fetching template' });
+    } catch (err) {
+        console.error('error during template fetch', err);
+        res.status(500).json({ message: 'Error fetching template', error: err.message });
+    }
+};

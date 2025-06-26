@@ -10,7 +10,7 @@ import {
 } from "@dnd-kit/sortable";
 import Question from "./Question"; 
 
-function QuestionsList({ questions, setQuestions, disabled, onQuestionDoubleClick, activeQuestionId, qTypes}) {
+function QuestionsList({ questions, setQuestions, disabled, activeQuestionId, setActiveQuestionId, qTypes, onEdit, onDelete }) {
   
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -35,13 +35,15 @@ function QuestionsList({ questions, setQuestions, disabled, onQuestionDoubleClic
         >
           {questions.map((question) => (
             <Question
-              onDoubleClick={onQuestionDoubleClick}
               key={question.id}
               id={question.id}
               question={question}
               disabled={disabled}
-              isActive={activeQuestionId === question.id}
+              activeQuestionId={activeQuestionId}
+              setActiveQuestionId={setActiveQuestionId}
               qTypes={qTypes}
+              onEdit={onEdit}
+              onDelete={onDelete}
             />
           ))}
         </SortableContext>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
-import '../style/CardHover.css';
+import '../../style/CardHover.css';
+import axios from 'axios';
 
 function TemplateSection({ title, templates, loading, isMain}) {
   const [selectedTemplates, setSelectedTemplates] = useState([]);
@@ -27,7 +28,6 @@ function TemplateSection({ title, templates, loading, isMain}) {
     });
   };
 
-
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       setSelectedTemplates(templates.map(tpl => tpl.id));
@@ -48,8 +48,23 @@ function TemplateSection({ title, templates, loading, isMain}) {
     navigate('/template/create')
   };
 
-  const handleDeleteTemplates = () => {
+  const handleDeleteTemplates = async () => {
+    if (selectedTemplates.length === 0) return;
+    if (!window.confirm('Are you sure you want to delete all the selected templates?')) return;
 
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/templates/delete',
+        { templateIds: selectedTemplates },
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        setSelectedTemplates([]);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
   
   if (loading) {
@@ -64,32 +79,29 @@ function TemplateSection({ title, templates, loading, isMain}) {
 
   return (
     <section>
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center">
-          <h4 className="mb-0">{title}</h4>
-        </div>
-          {!isMain && (
-            <>
-              <input
-                type="checkbox"
-                className="form-check-input ms-3 align-middle"
-                style={{ zIndex: 2 }}
-                checked={templates.length > 0 && selectedTemplates.length === templates.length}
-                onChange={handleSelectAll}
-              />
-            <div>
-              <button className="btn btn-success me-2" onClick={handleCreateTemplate} title={t("myProfile.createTemplate")}>
-                <i className="bi bi-plus-lg"></i>
-              </button>
-              <button className="btn btn-danger" onClick={handleDeleteTemplates} disabled={selectedTemplates.length === 0} title={t("myProfile.deleteTemplate")}>
-                <i className="bi bi-trash"></i>
-              </button>
-            </div>
-          </>
-          )}        
+      <div className="d-flex align-items-center mb-3">
+        <h4 className="mb-0">{title}</h4>
+        {!isMain && (
+          <input
+            type="checkbox"
+            className="form-check-input ms-2 align-middle"
+            style={{ zIndex: 2 }}
+            checked={templates.length > 0 && selectedTemplates.length === templates.length}
+            onChange={handleSelectAll}
+          />
+        )}
+        {!isMain && (
+          <div className="ms-auto">
+            <button className="btn btn-success me-2" onClick={handleCreateTemplate} title={t("myProfile.createTemplate")}>
+              <i className="bi bi-plus-lg"></i>
+            </button>
+            <button className="btn btn-danger" onClick={handleDeleteTemplates} disabled={selectedTemplates.length === 0} title={t("myProfile.deleteTemplate")}>
+              <i className="bi bi-trash"></i>
+            </button>
           </div>
+        )}
+      </div>
           
-
       <div className="row mt-2">
         {templates.map(tpl => (
           <div className="col-md-4 col-lg-4 mb-4 col-sm-6" key={tpl.id}>
@@ -114,7 +126,6 @@ function TemplateSection({ title, templates, loading, isMain}) {
                 src={tpl.imageUrl} 
                 className="card-img-top" 
                 alt={tpl.title + ' Image'} 
-                style={{ objectFit: "cover", height: "100px" }} 
               />
               <div className="card-body pb-2">
                 <h5 className="card-title text-center fw-bold">{tpl.title}</h5>

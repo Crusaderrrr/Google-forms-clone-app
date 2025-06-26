@@ -1,18 +1,12 @@
 import React, { useRef } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 
-function Question({ id, question, disabled, onDoubleClick, qTypes }) {
+function Question({ id, question, disabled, qTypes, setActiveQuestionId }) {
    const cardRef = useRef(null);
 
   const handleDoubleClick = () => {
     if (disabled) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    onDoubleClick(id, {
-      left: rect.left,
-      top: rect.top,
-      width: rect.width,
-      height: rect.height
-    });
+    setActiveQuestionId(id);
   };
 
   const combinedRef = node => {
@@ -47,15 +41,15 @@ function Question({ id, question, disabled, onDoubleClick, qTypes }) {
       tabIndex={0}
       onDoubleClick={handleDoubleClick}
     >
-      <div className="card-body py-2 px-3">
+      <div className="card-body py-2 px-3 position-relative">
         <h5 className="card-title mb-3">
-            <strong style={{fontSize: '1.1rem'}}>{question.title}</strong>
+          <strong style={{ fontSize: '1.1rem' }}>{question.title}</strong>
         </h5>
         <h6 className="card-subtitle">
-          <p className="badge bg-secondary ms-2" style={{fontSize: '0.9rem'}}>{qTypes[question.type]}</p>
+          <p className="badge bg-secondary ms-2" style={{ fontSize: '0.9rem' }}>{qTypes[question.type]}</p>
         </h6>
         {question.description && (
-            <p className="card-text mb-0 text-secondary">{question.description}</p>
+          <p className="card-text mb-0 text-secondary">{question.description}</p>
         )}
       </div>
     </div>

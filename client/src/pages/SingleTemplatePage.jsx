@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import SingleTemplate from "../components/SingleTemplate";
+import SingleTemplate from "../components/template/SingleTemplate";
 import { useApp } from '../context/AppContext';
 import axios from 'axios';
 
@@ -12,7 +12,9 @@ const emptyTemplate = {
   tags: [],
   createdAt: "",
   updatedAt: "",
-  userId: ""
+  userId: "",
+  questions: [],
+  imageUrl: ''
 };
 
 function SingleTemplatePage() {
@@ -21,7 +23,6 @@ function SingleTemplatePage() {
   const location = useLocation();
   const {role} = useApp();
 
-  // Determine mode from URL or state
   const isCreate = location.pathname === "/template/create";
   const isGuest = role === "guest";
   const [mode, setMode] = useState(
@@ -36,16 +37,22 @@ function SingleTemplatePage() {
     }
 
     async function fetchAndSetTemplate(id) {
-      const response = await axios.get('url/api/getTemplate', { params: { id: id } });
-      if (response.status === 200) {
-        setTemplate(response.data);
+      try {
+        const response = await axios.get(`http://localhost:5000/api/templates/${id}`, { withCredentials: true });
+          if (response.status === 200) {
+            setTemplate(response.data.template);
+            console.log(response.data.template)
+          }
+      } catch (err) {
+        console.error(err);
       }
+ 
     }
 
     if (id) {
       fetchAndSetTemplate(id);
     }
-  }, [isGuest, mode, id]);
+  }, [id]);
 
   const handleCreate = async (templateData) => {
     console.log("Saving template:", templateData);
