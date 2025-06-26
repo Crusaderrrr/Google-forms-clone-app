@@ -169,3 +169,89 @@ exports.getTemplateById = async (req, res) => {
         res.status(500).json({ message: 'Error fetching template', error: err.message });
     }
 };
+
+exports.updateTemplate = async (req, res) => {
+    try {
+        if (req.session.user && req.session.user.role !== 'guest') {
+            let { title, description, topic, tags, questions } = req.body;
+            console.log('BODY:', req.body);
+            console.log('FILE:', req.file);
+            if (typeof tags === 'string') tags = JSON.parse(tags);
+            if (typeof questions === 'string') questions = JSON.parse(questions);
+
+            if (!Array.isArray(tags)) tags = [];
+            if (!Array.isArray(questions)) questions = [];
+
+            const currentTemplate = await prisma.template.findUnique({
+                where: { id: Number(req.params.id) },
+                select: { imageUrl: true }
+            });
+
+            let imageUrl = currentTemplate.imageUrl;
+
+            if (req.file) {
+                if (
+                    imageUrl &&
+                    imageUrl.includes('cloudinary') &&
+                    !imageUrl.includes('template_default_img')
+                ) {
+                    try {
+                        const parts = imageUrl.split('/');
+                        const fileWithExt = parts[parts.length - 1];
+                        const folder = parts[parts.length - 2];
+                        const publicId = `${folder}/${fileWithExt.split('.')[0]}`;
+                        await cloudinary.uploader.destroy(publicId);
+                    } catch (cloudErr) {
+                        console.warn(`Cloudinary deletion failed for ${imageUrl}:`, cloudErr.message)
+                    }
+                }
+                const result = await cloudinary.uploader.upload(req.file.path, {
+                    folder: 'templates'
+                });
+                imageUrl = result.secure_url;
+            }
+
+            console.log('TAGS:', tags);
+            console.log('QUESTIONS:', questions);
+
+            const updatedTemplate = await prisma.template.update({
+                where: { id: Number(req.params.id) },
+                data: {
+                    title,
+                    description,
+                    topic,
+                    imageUrl,
+                    questions: {
+                        deleteMany: {},
+                        create: questions.map(q => ({
+                            type: q.type,
+                            title: q.title,
+                            description: q.description,
+                            showInTable: q.showInTable,
+                            enabled: q.enabled,
+                            order: q.order
+                        }))
+                    },
+                    tags: {
+                        deleteMany: {},
+                        create: tags.map(tagObj => ({
+                            tag: {
+                                connectOrCreate: {
+                                    where: { name: tagObj.tag?.name || tagObj.name },
+                                    create: { name: tagObj.tag?.name || tagObj.name }
+                                }
+                            }
+                        }))
+                    }
+                },
+                include: { tags: { include: { tag: true } }, questions: true }
+            });
+            return res.status(200).json({ message: 'Template updated successfully', template: updatedTemplate })
+        } else {
+            res.status(401).json({ message: 'Unauthorized on updating template' });
+        }
+    } catch (err) {
+        console.error('Update error:', err);
+        res.status(500).json({ message: "Error when updating template", error: err.message })
+    }
+};

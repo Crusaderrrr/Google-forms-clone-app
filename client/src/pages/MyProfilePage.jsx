@@ -16,7 +16,7 @@ function MyProfilePage () {
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeSection, setActiveSection] = useState('templates');
-    const {role} = useApp();
+    const {role, userId} = useApp();
 
     useEffect(() => {
       const fetchTemplates = async () => {

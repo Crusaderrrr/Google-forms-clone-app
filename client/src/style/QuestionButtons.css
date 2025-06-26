@@ -1,6 +1,0 @@
-.question-action-buttons {
-  display: none;
-}
-.card.question-card:hover .question-action-buttons {
-  display: flex;
-}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import QuestionsList from "./questions DnD/QuestionsList";
 import TitleForm from './template forms/TitleForm';
 import ImageForm from "./template forms/ImageForm";
 import DescriptionForm from "./template forms/DescriptionForm";
@@ -7,7 +6,7 @@ import TopicForm from "./template forms/TopicForm";
 import TagsForm from "./template forms/TagsForm";
 import QuestionsForm from "./template forms/QuestionsForm";
 
-function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEditButton }) {
+function Template({ mode, initialValues, onSubmit }) {
   const [template, setTemplate] = useState(initialValues);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -18,6 +17,7 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
   const [editingQuestionId, setEditingQuestionId] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ left: 0, top: 0, height: 0 });
   const [showAddQuestionForm, setShowAddQuestionForm] = useState(false);
+  const definedTopics = ["Education", "Quiz", ""];
   const [newQuestion, setNewQuestion] = useState({
     type: "singleLine",
     title: "",
@@ -34,12 +34,30 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
   };
 
   useEffect(() => {
-    setTemplate(initialValues);
+    setTemplate(prev => {
+      if (initialValues.topic && !definedTopics.includes(initialValues.topic)) {
+        return {
+          ...initialValues,
+          customTopic: initialValues.topic
+        };
+      }
+      return {
+        ...initialValues,
+        customTopic: initialValues.customTopic || ""
+      };
+    });
     setQuestions(initialValues.questions || []);
     setTags(initialValues.tags || []);
+    setImagePreview(initialValues.imageUrl || "");
   }, [initialValues]);
 
+  console.log(template.topic, template.customTopic)
+
   const readOnly = mode === "view";
+
+  const handleCustomTopicChange = (e) => {
+    setTemplate(prev => ({ ...prev, customTopic: e.target.value}))
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +77,7 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
   const handleSubmit = (e) => {
     e.preventDefault();
     let topicToSend = template.topic;
-    if (template.topic === 'Other' && template.customTopic) {
+    if (template.customTopic && !definedTopics.includes(template.topic)) {
       topicToSend = template.customTopic;
     }
     if (onSubmit) onSubmit({ title: template.title, description: template.description, topic: topicToSend, questions, tags, imageFile});
@@ -68,7 +86,7 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
   const handleAddTag = () => {
     const name = tagInput.trim();
     if (!name) return;
-    if (tags.some(tag => tag.name.toLowerCase() === name.toLowerCase())) {
+    if (tags.some(tagObj => tagObj.tag.name.toLowerCase() === name.toLowerCase())) {
       setTagInput("");
       return;
     }
@@ -136,9 +154,6 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
 
   return (
     <form onSubmit={handleSubmit}>
-      {showEditButton && (
-        <button type="button" className="btn btn-info" onClick={onEdit}>Edit</button>
-      )}
 
       <TitleForm 
         title={template.title} 
@@ -159,10 +174,13 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
       />
 
       <TopicForm 
-        topic={template.topic} 
+        mode={mode}
+        topic={template.topic}
         customTopic={template.customTopic} 
-        handleChange={handleChange} 
+        handleChange={handleChange}
+        handleCustomTopicChange={handleCustomTopicChange} 
         readOnly={readOnly}
+        definedTopics={definedTopics}
       />
 
       <TagsForm 
@@ -199,12 +217,15 @@ function SingleTemplate({ mode = "view", initialValues, onSubmit, onEdit, showEd
       />
 
       {!readOnly && (
-        <button type="submit" className="btn btn-success mt-4 w-100">
-          Save
+        <button
+          type="submit"
+          className="btn btn-success mt-3"
+        >
+          {mode === "create" ? "Save" : "Update"}
         </button>
       )}
     </form>
   );
 }
 
-export default SingleTemplate;
+export default Template;

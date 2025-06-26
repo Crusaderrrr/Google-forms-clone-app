@@ -163,6 +163,20 @@ exports.Prisma.QuestionScalarFieldEnum = {
   order: 'order'
 };
 
+exports.Prisma.FormScalarFieldEnum = {
+  id: 'id',
+  templateId: 'templateId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AnswerScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  questionId: 'questionId',
+  value: 'value'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -189,7 +203,9 @@ exports.Prisma.ModelName = {
   Template: 'Template',
   Tag: 'Tag',
   TemplateTag: 'TemplateTag',
-  Question: 'Question'
+  Question: 'Question',
+  Form: 'Form',
+  Answer: 'Answer'
 };
 
 /**

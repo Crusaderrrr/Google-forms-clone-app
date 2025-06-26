@@ -6,7 +6,7 @@ import { useApp } from '../context/AppContext'
 
 function LoginPage() {
   const navigate = useNavigate();
-  const {setRole, email, setEmail, setName, setTheme} = useApp()
+  const {setRole, email, setEmail, setName, setTheme, setUserId} = useApp()
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [password, setPassword] = useState('');
@@ -38,9 +38,17 @@ function LoginPage() {
       }, 
       { withCredentials: true })
 
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.user.isAdmin === true) {
         console.log(response.data)
         setName(response.data.user.name);
+        setUserId(response.data.user.id);
+        setRole('admin');
+        navigate('/main');
+      }
+      else if (response.status === 200 && response.data.user.isAdmin !== true) {
+        console.log(response.data)
+        setName(response.data.user.name);
+        setUserId(response.data.user.id);
         setRole('user');
         navigate('/main');
       }

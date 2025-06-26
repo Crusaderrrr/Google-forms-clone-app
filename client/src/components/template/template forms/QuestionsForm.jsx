@@ -76,34 +76,50 @@ function QuestionsForm({ questionForm, handlers }) {
             />
 
             {activeQuestionId && (
-                <div
-                    ref={menuRef}
-                    tabIndex={-1}
-                    className="position-fixed top-50 start-50 translate-middle rounded shadow p-2"
-                    style={{
-                        width: 220,
-                        zIndex: 1050
-                    }}
-                >
-                    <button
-                        className="btn btn-sm btn-outline-info mb-1 w-100"
-                        onClick={() => {
-                        handleQuestionEdit(activeQuestionId);
-                        setActiveQuestionId(null);
+                <>
+                    <div
+                        className="position-fixed top-0 start-0 w-100 h-100"
+                        style={{
+                            zIndex: 1049,
+                            background: "rgba(0,0,0,0.3)",
+                            backdropFilter: "blur(2px)"
+                        }}
+                    />
+                    <div
+                        ref={menuRef}
+                        tabIndex={-1}
+                        className="position-fixed top-50 start-50 translate-middle rounded shadow p-2"
+                        style={{
+                            width: 250,
+                            zIndex: 1050
                         }}
                     >
-                        Edit
-                    </button>
-                    <button
-                        className="btn btn-sm btn-outline-danger w-100"
-                        onClick={() => {
-                        handleQuestionDelete(activeQuestionId);
-                        setActiveQuestionId(null);
-                        }}
-                    >
-                        Delete
-                    </button>
-                </div>
+                        <h5 className="mb-2 text-center text-primary">
+                            Edit question you clicked
+                        </h5>
+                        <h6 className="text-center mb-2">(Click outside to cancel)</h6>
+                        <div className="d-grid gap-2">
+                            <button
+                                className="btn btn-outline-info"
+                                onClick={() => {
+                                    handleQuestionEdit(activeQuestionId);
+                                    setActiveQuestionId(null);
+                                }}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="btn btn-outline-danger"
+                                onClick={() => {
+                                    handleQuestionDelete(activeQuestionId);
+                                    setActiveQuestionId(null);
+                                }}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </>
             )}
 
             {!readOnly && showAddQuestionForm && (

@@ -13,6 +13,7 @@ export function AppProvider({ children }) {
     const [role, setRole] = useState(() => getStored('role', 'guest'));
     const [name, setName] = useState(() => getStored('name', ''));
     const [email, setEmail] = useState(() => getStored('email', ''));
+    const [userId, setUserId] = useState(() => getStored('userId', ''))
     const [profileImg, setProfileImg] = useState(() =>
         getStored('profileImg', default_profile_image)
     );
@@ -25,7 +26,8 @@ export function AppProvider({ children }) {
         localStorage.setItem('name', name);
         localStorage.setItem('email', email);
         localStorage.setItem('profileImg', profileImg);
-    }, [role, name, email, profileImg]);
+        localStorage.setItem('userId', userId);
+    }, [role, name, email, profileImg, userId]);
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
@@ -45,6 +47,7 @@ export function AppProvider({ children }) {
             language, setLanguage,
             email, setEmail,
             name, setName,
+            userId, setUserId,
             profileImg, setProfileImg
         }}>
             {children}
