@@ -18,8 +18,9 @@ function App() {
       <Route element={<LayoutWithNavbar />}>
         <Route path='/main' element={<MainPage/>}/>
         <Route path='/myProfile' element={<MyProfilePage/>}/>
-        <Route path='/template/create' element={<TemplatePage />} />
-        <Route path='/template/:id' element={<TemplatePage />} /> 
+        <Route path='/template/create' element={<TemplatePage/>} />
+        <Route path='/template/:id' element={<TemplatePage/>} /> 
+        <Route path='/form/:id' element={<TemplatePage/>}/>
       </Route>
     </Routes>
   </AppProvider>

@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const auth = require('./routes/auth');
-const templates = require('./routes/templates')
+const templates = require('./routes/templates');
+const forms = require('./routes/forms');
 const session = require('express-session');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
@@ -29,6 +30,7 @@ app.use(
 
 app.use('/api/auth', auth);
 app.use('/api/templates', templates);
+app.use('/api/forms', forms);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {console.log(`Server listening on port: ${port}`)});

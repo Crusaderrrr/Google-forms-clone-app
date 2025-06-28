@@ -36,7 +36,7 @@ exports.signup = async (req, res) => {
     const existingUser = await prisma.user.findUnique({ where: { email: email } });
 
     if (existingUser) {
-      res.status(409).json({ message: 'User already exists' });
+      return res.status(409).json({ message: 'User already exists' });
     } else {
       const user = await prisma.user.create({
         data: { name: name, email: email, password: await bcrypt.hash(password, 10) }
@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
 
       req.session.user = { id: user.id, name: user.name, email: user.email };
 
-      res.status(201).json({ message: 'Signup successful', user: { id: user.id, name: user.name, email: user.email } });
+      return res.status(201).json({ message: 'Signup successful', user: { id: user.id, name: user.name, email: user.email } });
     }
   } catch (err) {
     res.status(500).json({ message: 'Error during signup', error: err.message });
@@ -57,7 +57,7 @@ exports.guest = async (req, res) => {
     if (guestState) {
       req.session.user = {role: 'guest'}
     }
-    res.status(200).json({ message: 'Entry as guest successful', role: req.session.user.role})
+    return res.status(200).json({ message: 'Entry as guest successful', role: req.session.user.role})
   } catch (err) {
     res.status(500).json({ message: 'Error during guest post request', error: err.message })
   }

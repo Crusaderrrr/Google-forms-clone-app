@@ -26,12 +26,16 @@ function QuestionsForm({ questionForm, handlers }) {
     } = handlers;
 
     const menuRef= useRef(null);
+    const addFormRef = useRef(null);
 
     useEffect(() => {
         if (activeQuestionId && menuRef.current) {
             menuRef.current.focus();
         }
-    }, [activeQuestionId]);
+        if (showAddQuestionForm && addFormRef.current) {
+            addFormRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }, [activeQuestionId, showAddQuestionForm]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -88,7 +92,7 @@ function QuestionsForm({ questionForm, handlers }) {
                     <div
                         ref={menuRef}
                         tabIndex={-1}
-                        className="position-fixed top-50 start-50 translate-middle rounded shadow p-2"
+                        className="position-fixed top-50 start-50 translate-middle rounded shadow p-4 bg-dark"
                         style={{
                             width: 250,
                             zIndex: 1050
@@ -100,7 +104,7 @@ function QuestionsForm({ questionForm, handlers }) {
                         <h6 className="text-center mb-2">(Click outside to cancel)</h6>
                         <div className="d-grid gap-2">
                             <button
-                                className="btn btn-outline-info"
+                                className="btn btn-info"
                                 onClick={() => {
                                     handleQuestionEdit(activeQuestionId);
                                     setActiveQuestionId(null);
@@ -109,7 +113,7 @@ function QuestionsForm({ questionForm, handlers }) {
                                 Edit
                             </button>
                             <button
-                                className="btn btn-outline-danger"
+                                className="btn btn-danger"
                                 onClick={() => {
                                     handleQuestionDelete(activeQuestionId);
                                     setActiveQuestionId(null);
@@ -123,7 +127,7 @@ function QuestionsForm({ questionForm, handlers }) {
             )}
 
             {!readOnly && showAddQuestionForm && (
-                <div className="card p-3 mt-2">
+                <div className="card p-3 mt-2" ref={addFormRef}>
                     <div className="mb-2 text-start">
                         <label className="mb-1 ms-2 fw-bold">Type</label>
                         <select

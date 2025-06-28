@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 
-function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
-    const [answers, setAnswers] = useState({});
+function TemplateFill ({template, onSubmit, onEdit, showEditButton, questionTypes, loading, buttonLoading}) {
+    const [answers, setAnswers] = useState([]);
 
-    const handleInputChange = (id, value) => {
-        setAnswers(prev => ({ ...prev, [id]: value }));
+    const handleInputChange = (qId, value) => {
+        const existing = answers.find(a => a.qId === qId)
+        if (existing) {
+            setAnswers(answers.map(a => a.qId === qId ? { ...a, value: value } : a))
+        } else {
+            setAnswers([...answers, {qId, value}])
+        }
+        
     };
 
-    const questionTypes = {
-        'singleLine': 'Single line answer',
-        'multiLine': 'Multi line answer',
-        'integer': 'Numeric answer',
-        'checkbox': 'Yes / No checkbox answer'
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (onSubmit) onSubmit(answers);
     };
+
+    if (loading) {
+        return (
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: 200 }}>
+            <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        );
+    }
 
     return (
         <div className="container-lg my-5">
@@ -60,7 +74,7 @@ function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
 
             {/* Questions */}
             <h3 className="mt-4 mb-3 text-start">Questions:</h3>
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleSubmit}>
                 {template.questions && template.questions.length > 0 ? (
                 template.questions.map(q => (
                     <div key={q.id} className="mb-4 p-3 border rounded">
@@ -76,15 +90,15 @@ function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
                         <input
                         type="text"
                         className="form-control"
-                        value={answers[q.id] || ""}
+                        value={answers.find(a => a.qId === q.id)?.value || ""}
                         onChange={e => handleInputChange(q.id, e.target.value)}
                         />
                     )}
                     {q.type === "multiLine" && (
                         <textarea
                         className="form-control"
-                        rows={3}
-                        value={answers[q.id] || ""}
+                        rows={4}
+                        value={answers.find(a => a.qId === q.id)?.value || ""}
                         onChange={e => handleInputChange(q.id, e.target.value)}
                         />
                     )}
@@ -92,7 +106,7 @@ function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
                         <input
                         type="number"
                         className="form-control"
-                        value={answers[q.id] || ""}
+                        value={answers.find(a => a.qId === q.id)?.value || ""}
                         onChange={e => handleInputChange(q.id, e.target.value.replace(/[^0-9-]/g, ""))}
                         />
                     )}
@@ -104,7 +118,7 @@ function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
                             type="radio"
                             name={`checkbox-${q.id}`}
                             id={`checkbox-yes-${q.id}`}
-                            checked={answers[q.id] === true}
+                            checked={answers.find(a => a.qId === q.id)?.value === true}
                             onChange={() => handleInputChange(q.id, true)}
                             />
                             <label className="form-check-label" htmlFor={`checkbox-yes-${q.id}`}>Yes</label>
@@ -115,7 +129,7 @@ function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
                             type="radio"
                             name={`checkbox-${q.id}`}
                             id={`checkbox-no-${q.id}`}
-                            checked={answers[q.id] === false}
+                            checked={answers.find(a => a.qId === q.id)?.value === false}
                             onChange={() => handleInputChange(q.id, false)}
                             />
                             <label className="form-check-label" htmlFor={`checkbox-no-${q.id}`}>No</label>
@@ -127,7 +141,14 @@ function TemplateFill ({template, handleFormSubmit, onEdit, showEditButton}) {
                 ) : (
                     <div className="text-muted">No questions</div>
                 )}
-                <button className="btn btn-success" type="submit">Save</button>
+                {buttonLoading === true ? (
+                <button className="btn btn-success py-2" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Saving...
+                    </button>
+                ):(
+                    <button className="btn btn-success px-4" type="submit">Save</button>
+                )}
             </form>
         </div>
     );

@@ -9,25 +9,6 @@ function TemplateSection({ title, templates, loading, isMain}) {
   const {t} = useTranslation();
   const navigate = useNavigate();
 
-  const handleAddQuestion = () => {
-    setQuestions(prev => [
-      ...prev,
-      {
-        ...newQuestion,
-        id: Date.now(),
-        order: prev.length + 1,
-      }
-    ]);
-    setShowAddForm(false);
-    setNewQuestion({
-      type: "singleLine",
-      title: "",
-      description: "",
-      showInTable: true,
-      enabled: true,
-    });
-  };
-
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       setSelectedTemplates(templates.map(tpl => tpl.id));
@@ -108,7 +89,7 @@ function TemplateSection({ title, templates, loading, isMain}) {
             <div
               className="card h-100 card-hover shadow-sm rounded-4 border-1"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/template/${tpl.id}`)}
+              onClick={() => navigate(`/template/${tpl.id}`, { state: { mode: 'view' } })}
               >
               {!isMain && (
                 <>

@@ -17,7 +17,7 @@ function Navbar () {
     };
 
     return (
-    <nav  className={`navbar navbar-expand-lg ${theme === 'light' ? 'bg-light navbar-light' : 'bg-dark navbar-dark'}`}>
+    <nav  className={`sticky-top navbar navbar-expand-lg ${theme === 'light' ? 'bg-light navbar-light' : 'bg-dark navbar-dark'}`}>
     <div className="container-fluid">
         <a className="navbar-brand mx-3" href="/main">{t('navbar.theApp')}</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

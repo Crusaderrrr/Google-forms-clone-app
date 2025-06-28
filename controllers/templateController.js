@@ -15,9 +15,9 @@ exports.getAllTemplates = async (req, res) => {
                     }
                 }
             });
-            res.status(200).json({message: 'All templates fetch successful', templates: templates})
+            return res.status(200).json({message: 'All templates fetch successful', templates: templates})
         } else {
-            res.status(401).json({message: 'Unauthorized on fetching templates'})
+            return res.status(401).json({message: 'Unauthorized on fetching templates'})
         }
     } catch (err) {
         console.error(err);
@@ -65,11 +65,11 @@ exports.createTemplate = async (req, res) => {
                         }))
                     },
                     tags: {
-                        create: tags?.map(tag => ({
+                        create: tags?.map(tagObj => ({
                             tag: {
                                 connectOrCreate: {
-                                    where: { name: tag.name },
-                                    create: { name: tag.name }
+                                    where: { name: tagObj.tag.name },
+                                    create: { name: tagObj.tag.name }
                                 }
                             }
                         }))
@@ -78,9 +78,9 @@ exports.createTemplate = async (req, res) => {
                 include: { tags: { include: { tag: true } }, questions: true }
             });
 
-            res.status(201).json({ message: 'Template created successfully', template});
+            return res.status(201).json({ message: 'Template created successfully', template});
         } else {
-            res.status(401).json({ message: 'Unauthorized on creating template' })
+            return res.status(401).json({ message: 'Unauthorized on creating template' })
         }
     } catch (err) {
         res.status(500).json({ message: 'Error during template creation', error: err.message })
@@ -99,9 +99,9 @@ exports.getLatestTemplates = async (req, res) => {
                     author: true
                 } 
             });
-            res.status(200).json({ message: 'Latest templates fetched', templates })
+            return res.status(200).json({ message: 'Latest templates fetched', templates })
         } else {
-            res.status(401).json({ message: 'Unauthorized on fetching latest templates' })
+            return res.status(401).json({ message: 'Unauthorized on fetching latest templates' })
         }
     } catch (err) {
         res.status(500).json({ message: 'Server error on fetching latest', error: err.message })
@@ -141,7 +141,7 @@ exports.deleteTemplates = async (req, res) => {
         await prisma.template.deleteMany({
             where: { id: { in: templateIds } }
         });
-        res.status(200).json({ message: 'Templates deleted successfully' });
+        return res.status(200).json({ message: 'Templates deleted successfully' });
     } catch (err) {
         res.status(500).json({ message: 'Error deleting templates', error: err.message })
     }
@@ -163,7 +163,7 @@ exports.getTemplateById = async (req, res) => {
             }
             return res.status(200).json({ message: 'Template found', template });
         } else {}
-        res.status(401).json({ message: 'Unauthorized on fetching template' });
+        return res.status(401).json({ message: 'Unauthorized on fetching template' });
     } catch (err) {
         console.error('error during template fetch', err);
         res.status(500).json({ message: 'Error fetching template', error: err.message });
@@ -211,9 +211,6 @@ exports.updateTemplate = async (req, res) => {
                 imageUrl = result.secure_url;
             }
 
-            console.log('TAGS:', tags);
-            console.log('QUESTIONS:', questions);
-
             const updatedTemplate = await prisma.template.update({
                 where: { id: Number(req.params.id) },
                 data: {
@@ -248,7 +245,7 @@ exports.updateTemplate = async (req, res) => {
             });
             return res.status(200).json({ message: 'Template updated successfully', template: updatedTemplate })
         } else {
-            res.status(401).json({ message: 'Unauthorized on updating template' });
+            return res.status(401).json({ message: 'Unauthorized on updating template' });
         }
     } catch (err) {
         console.error('Update error:', err);

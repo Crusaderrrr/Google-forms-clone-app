@@ -8,12 +8,11 @@ import test_img from '../assets/background_image.webp'
 import axios from 'axios';
 import { useApp } from '../context/AppContext'
 
-const forms = [{id: 1, title: 'Test Form', filledAt: '01.02.2025', image: test_img}]
-
 function MyProfilePage () {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [templates, setTemplates] = useState([]);
+    const [forms, setForms] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeSection, setActiveSection] = useState('templates');
     const {role, userId} = useApp();
@@ -30,7 +29,6 @@ function MyProfilePage () {
               withCredentials: true,
             });
             if (response.status === 200) {
-              console.log(response.data)
               setTemplates(response.data.templates)
             }
           } catch (err) {
@@ -41,6 +39,28 @@ function MyProfilePage () {
         }
       };
     fetchTemplates();
+
+    const fetchForms = async () => {
+      setLoading(true);
+        if (role === 'guest') {
+          navigate('/login');
+          setLoading(false);
+        } else {
+          try {
+            const response = await axios.get('http://localhost:5000/api/forms',  
+              { withCredentials: true }
+            );
+            if (response.status === 200) {
+              setForms(response.data.formSectionInfo)
+            }
+          } catch (err) {
+            console.error(err);
+          } finally {
+            setLoading(false);
+          }
+        }
+    };
+    fetchForms();
   }, [role, navigate]);
 
     const handleTplSet = () => {

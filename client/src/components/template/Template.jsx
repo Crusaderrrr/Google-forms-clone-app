@@ -51,8 +51,6 @@ function Template({ mode, initialValues, onSubmit }) {
     setImagePreview(initialValues.imageUrl || "");
   }, [initialValues]);
 
-  console.log(template.topic, template.customTopic)
-
   const readOnly = mode === "view";
 
   const handleCustomTopicChange = (e) => {
@@ -90,7 +88,7 @@ function Template({ mode, initialValues, onSubmit }) {
       setTagInput("");
       return;
     }
-    setTags(prev => [...prev, { id: Date.now(), name }]);
+    setTags(prev => [...prev, { id: Date.now(), tag: { id: Date.now(), name: name } }]);
     setTagInput("");
   };
 
@@ -219,7 +217,7 @@ function Template({ mode, initialValues, onSubmit }) {
       {!readOnly && (
         <button
           type="submit"
-          className="btn btn-success mt-3"
+          className="btn btn-success mt-3 mb-3 px-4"
         >
           {mode === "create" ? "Save" : "Update"}
         </button>
