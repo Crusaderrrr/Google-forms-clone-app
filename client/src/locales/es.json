@@ -1,25 +1,112 @@
 {
-    "navbar": {
-        "theApp": "La Aplicación",
-        "language": "Idioma",
-        "langDropdown": {
-            "English": "Inglés",
-            "Spanish": "Español"
-        },
-        "myProfile": "Mi Perfil",
-        "login": "Iniciar Sesión",
-        "search": "Buscar"
+  "navbar": {
+    "theApp": "La Aplicación",
+    "language": "Idioma",
+    "langDropdown": {
+      "English": "Inglés",
+      "Spanish": "Español"
     },
-    "myProfile": {
-        "myTemplates": "Mis Plantillas",
-        "templates": "Plantillas",
-        "createTemplate": "Crear plantilla",
-        "deleteTemplate": "Eliminar plantillas eligidas",
-        "myForms": "Mis Formularios",
-        "forms": "Mis Formularios",
-        "selectAll": "Eligir todo"
+    "myProfile": "Mi Perfil",
+    "login": "Iniciar Sesión",
+    "search": "Buscar plantillas..."
+  },
+  "myProfile": {
+    "myTemplates": "Mis Plantillas",
+    "templates": "Plantillas",
+    "createTemplate": "Crear plantilla",
+    "deleteTemplate": "Eliminar plantillas eligidas",
+    "deleteTemplate?": "¿Está seguro de que desea eliminar todas las plantillas seleccionadas?",
+    "myForms": "Mis Formularios",
+    "forms": "Mis Formularios",
+    "deleteForm": "Eliminar formularios eligidos",
+    "deleteForm?": "¿Está seguro de que desea eliminar todas las formularios seleccionados?",
+    "selectAll": "Eligir todo",
+    "templateT": "Título de la plantilla",
+    "dateFilled": "Fecha de llenado"
+  },
+  "main": {
+    "latest": "Últimas Plantillas",
+    "tags": "Nube de etiquetas",
+    "mP": "Página Principal"
+  },
+  "template": {
+    "create": "Crear Plantilla",
+    "edit": "Editar Plantilla",
+    "title": "Título",
+    "fill": "Rellenar",
+    "image": "Imagen",
+    "saving": "Guardando...",
+    "updating": "Actualizando...",
+    "save": "Guardar",
+    "update": "Actualizar",
+    "comms": "Comentarios:",
+    "nC": "No hay comentarios todavía",
+    "addC": "Añadir Comentario",
+    "submit": "Publicar",
+    "cancel": "Cancelar",
+    "wC": "Escribe tu comentario...",
+    "by": "por ",
+    "access": {
+      "title": "Acceso: ",
+      "public": "Público",
+      "private": "Privado",
+      "addAllowed": "Añade usuarios permitidos",
+      "notAllowed": "Usted no tiene derechos para utilizar esta plantilla",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "placeholderEmail": "Escribe el correo electrónico de usuario...",
+      "placeholderName": "Escribe el nombre de usuario...",
+      "noAllowed": "No hay usuarios permitidos todavía"
     },
-    "main": {
-        "latest": "Últimas Plantillas"
+    "description": "Descripción",
+    "topic": {
+      "title": "Tema: ",
+      "select": "Elige el tema",
+      "education": "Educación",
+      "quiz": "Quiz",
+      "other": "Otro",
+      "custom": "Mi tema"
+    },
+    "tags": {
+      "title": "Etiquetas: ",
+      "delete": "(Haga click para eliminar)",
+      "placeholder": "Nombre de la etiqueta...",
+      "noTags": "No hay etiquetas todavía"
+    },
+    "questions": {
+      "title": "Preguntas: ",
+      "add": "Añadir pregunta",
+      "edit": "Editar pregunta pulsada",
+      "cancel": "(Haga click fuera para cancelar)",
+      "editB": "Editar",
+      "deleteB": "Elimiar",
+      "type": "Tipo",
+      "qTitle": "Título",
+      "description": "Descripción",
+      "show": "Mostar en tabla",
+      "save": "Guardar",
+      "addB": "Añadir",
+      "singleLine": "Respuesta en una línea",
+      "multi": "Respuesta multilínea",
+      "int": "Respuesta numérica",
+      "check": "Sí o no respuesta",
+      "doubleClick": "(Haga doble click para modificar)"
     }
+  },
+  "form": {
+    "edit": "Editar",
+    "filledBy": "Rellenado por:",
+    "when": "Cuando:",
+    "access": "Acceso:",
+    "allowed": "Usuarios permitidos:",
+    "noAdded": "No hay usuarios permitidos",
+    "desc": "Descripción",
+    "topic": "Tema: ",
+    "tags": "Etiquetas:",
+    "nTags": "No hay etiquetas",
+    "q": "Pregunats:",
+    "answer": "Respuesta: ",
+    "nA": "No hay respuesta",
+    "nQ": "No hay preguntas"
+  }
 }

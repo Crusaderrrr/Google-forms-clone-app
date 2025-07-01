@@ -136,10 +136,23 @@ exports.Prisma.TemplateScalarFieldEnum = {
   description: 'description',
   topic: 'topic',
   imageUrl: 'imageUrl',
-  isPublic: 'isPublic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  authorId: 'authorId',
+  access: 'access'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  templateId: 'templateId',
   authorId: 'authorId'
+};
+
+exports.Prisma.LikeScalarFieldEnum = {
+  id: 'id',
+  authorId: 'authorId',
+  templateId: 'templateId'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
@@ -201,6 +214,8 @@ exports.QuestionType = exports.$Enums.QuestionType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Template: 'Template',
+  Comment: 'Comment',
+  Like: 'Like',
   Tag: 'Tag',
   TemplateTag: 'TemplateTag',
   Question: 'Question',

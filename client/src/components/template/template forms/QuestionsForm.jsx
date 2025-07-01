@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import QuestionsList from "../questions DnD/QuestionsList";
 
-function QuestionsForm({ questionForm, handlers }) {
+function QuestionsForm({ t, questionForm, handlers }) {
     const {
         questions,
         setQuestions,
@@ -15,12 +15,10 @@ function QuestionsForm({ questionForm, handlers }) {
         questionTypes,
         mode,
         readOnly,
-        menuPosition
     } = questionForm;
 
     const {
         handleAddOrEditQuestion,
-        handleQuestionDoubleClick,
         handleQuestionEdit,
         handleQuestionDelete
     } = handlers;
@@ -54,8 +52,8 @@ function QuestionsForm({ questionForm, handlers }) {
     return (
         <>
             <div className="mt-4 mb-3 d-flex justify-content-between align-items-center position-relative">
-                <h4 className="mb-0 me-3">Questions</h4>
-                <span className="text-muted me-auto mt-1">{'(Double click to modify)'}</span>
+                <h4 className="mb-0 me-3">{t('template.questions.title')}</h4>
+                <span className="text-muted me-auto mt-1">{t('template.questions.doubleClick')}</span>
                 {!readOnly && (
                     <button
                         type="button"
@@ -63,7 +61,7 @@ function QuestionsForm({ questionForm, handlers }) {
                         onClick={() => setShowAddQuestionForm(f => !f)}
                         disabled={questions.length >= 12}
                     >
-                        Add Question
+                        {t('template.questions.add')}
                     </button>
                 )}
             </div>
@@ -99,9 +97,9 @@ function QuestionsForm({ questionForm, handlers }) {
                         }}
                     >
                         <h5 className="mb-2 text-center text-primary">
-                            Edit question you clicked
+                            {t('template.questions.edit')}
                         </h5>
-                        <h6 className="text-center mb-2">(Click outside to cancel)</h6>
+                        <h6 className="text-center mb-2">{t('template.questions.cancel')}</h6>
                         <div className="d-grid gap-2">
                             <button
                                 className="btn btn-info"
@@ -110,7 +108,7 @@ function QuestionsForm({ questionForm, handlers }) {
                                     setActiveQuestionId(null);
                                 }}
                             >
-                                Edit
+                                {t('template.questions.editB')}
                             </button>
                             <button
                                 className="btn btn-danger"
@@ -119,7 +117,7 @@ function QuestionsForm({ questionForm, handlers }) {
                                     setActiveQuestionId(null);
                                 }}
                             >
-                                Delete
+                                {t('template.questions.deleteB')}
                             </button>
                         </div>
                     </div>
@@ -129,7 +127,7 @@ function QuestionsForm({ questionForm, handlers }) {
             {!readOnly && showAddQuestionForm && (
                 <div className="card p-3 mt-2" ref={addFormRef}>
                     <div className="mb-2 text-start">
-                        <label className="mb-1 ms-2 fw-bold">Type</label>
+                        <label className="mb-1 ms-2 fw-bold">{t('template.questions.type')}</label>
                         <select
                             className="form-select"
                             value={newQuestion.type}
@@ -143,7 +141,7 @@ function QuestionsForm({ questionForm, handlers }) {
                         </select>
                     </div>
                     <div className="mb-2 text-start">
-                        <label className="mb-1 fw-bold ms-2">Title</label>
+                        <label className="mb-1 fw-bold ms-2">{t('template.questions.qTitle')}</label>
                         <input
                             className="form-control"
                             value={newQuestion.title}
@@ -151,7 +149,7 @@ function QuestionsForm({ questionForm, handlers }) {
                         />
                     </div>
                     <div className="mb-2 text-start">
-                        <label className="mb-1 ms-2 fw-bold">Description</label>
+                        <label className="mb-1 ms-2 fw-bold">{t('template.questions.description')}</label>
                         <input
                             className="form-control"
                             value={newQuestion.description}
@@ -165,7 +163,7 @@ function QuestionsForm({ questionForm, handlers }) {
                             checked={newQuestion.showInTable}
                             onChange={e => setNewQuestion(q => ({ ...q, showInTable: e.target.checked }))}
                         />
-                        <label className="form-check-label fw-bold ms-1">Show in Table</label>
+                        <label className="form-check-label fw-bold ms-1">{t('template.questions.show')}</label>
                     </div>
                     <button
                         type="button"
@@ -173,7 +171,7 @@ function QuestionsForm({ questionForm, handlers }) {
                         onClick={handleAddOrEditQuestion}
                         disabled={!newQuestion.title}
                     >
-                        {editingQuestionId ? "Save" : "Add"}
+                        {editingQuestionId ? t('template.questions.save') : t('template.questions.addB')}
                     </button>
                 </div>
             )}

@@ -31,7 +31,7 @@ function TemplateSection({ title, templates, loading, isMain}) {
 
   const handleDeleteTemplates = async () => {
     if (selectedTemplates.length === 0) return;
-    if (!window.confirm('Are you sure you want to delete all the selected templates?')) return;
+    if (!window.confirm(t('myProfile.deleteTemplate?'))) return;
 
     try {
       const response = await axios.post(
@@ -105,7 +105,7 @@ function TemplateSection({ title, templates, loading, isMain}) {
               )}
               <img 
                 src={tpl.imageUrl} 
-                className="card-img-top" 
+                className="card-img-top rounded-top-4 " 
                 alt={tpl.title + ' Image'} 
               />
               <div className="card-body pb-2">

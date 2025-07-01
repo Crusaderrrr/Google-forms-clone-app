@@ -1,11 +1,11 @@
 import React from "react";
 
-function DescriptionForm ({ description, handleChange, readOnly }) {
+function DescriptionForm ({ t, description, handleChange, readOnly }) {
 
 
     return (
         <div className="mb-3 text-start">
-        <label className="form-label fw-bold">Description</label>
+        <label className="form-label fw-bold">{t('template.description')}</label>
         <textarea
             name="description"
             className="form-control"

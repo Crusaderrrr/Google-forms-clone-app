@@ -10,6 +10,7 @@ router.get('/latest', templateController.getLatestTemplates);
 router.post('/delete', templateController.deleteTemplates);
 router.get('/:id', templateController.getTemplateById);
 router.put('/:id', upload.single('image'), templateController.updateTemplate)
+router.get('/search', templateController.searchTemplates);
 
 
 module.exports = router;

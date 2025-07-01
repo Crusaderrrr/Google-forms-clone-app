@@ -1,11 +1,11 @@
 import React from "react";
 
-function ImageForm ({ handleChange, readOnly, imagePreview }) {
+function ImageForm ({ t, handleChange, readOnly, imagePreview }) {
 
 
     return (
         <div className="mb-3 text-start">
-            <label className="form-label fw-bold">Image</label>
+            <label className="form-label fw-bold">{t('template.image')}</label>
             <input
                 type="file"
                 accept="image/*"

@@ -45,7 +45,7 @@ function SignupPage() {
         name: username,
         email: email,
         password: password
-      })
+      }, { withCredentials: true });
       if (response.status === 201) {
         setRole('user');
         setEmail(email);

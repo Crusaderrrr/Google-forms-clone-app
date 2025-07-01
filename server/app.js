@@ -4,6 +4,11 @@ const cors = require('cors');
 const auth = require('./routes/auth');
 const templates = require('./routes/templates');
 const forms = require('./routes/forms');
+const users = require('./routes/users');
+const tags = require('./routes/tags');
+const comments = require('./routes/comments');
+const likes = require('./routes/likes');
+const templateSearch = require('./routes/templateSearch')
 const session = require('express-session');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
@@ -24,13 +29,19 @@ app.use(
     secret: process.env.SESSION_SECRET_KEY,       
     resave: false,                 
     saveUninitialized: false,      
-    cookie: { maxAge: 60 * 60 * 1000, secure: false } 
+    cookie: { maxAge: 8 * 60 * 60 * 1000, secure: false },
+    rolling: true 
   })
 );
 
 app.use('/api/auth', auth);
 app.use('/api/templates', templates);
 app.use('/api/forms', forms);
+app.use('/api/users', users);
+app.use('/api/tags', tags);
+app.use('/api/search', templateSearch);
+app.use('/api/comments', comments);
+app.use('/api/likes', likes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {console.log(`Server listening on port: ${port}`)});

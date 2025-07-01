@@ -1,11 +1,11 @@
 import React from "react";
 
-function TitleForm ({ title, handleChange, readOnly }) {
+function TitleForm ({ t, title, handleChange, readOnly }) {
 
 
     return (
         <div className="mb-3 text-start">
-            <label className="form-label fw-bold">Title</label>
+            <label className="form-label fw-bold">{t('template.title')}</label>
             <input
                 name="title"
                 type="text"

@@ -1,26 +1,112 @@
 {
-    "navbar": {
-        "theApp": "The App",
-        "language": "Language",
-        "langDropdown": {
-            "English": "English",
-            "Spanish": "Spanish"
-        },
-        "myProfile": "My Profile",
-        "login": "Log In",
-        "search": "Search"
+  "navbar": {
+    "theApp": "The App",
+    "language": "Language",
+    "langDropdown": {
+      "English": "English",
+      "Spanish": "Spanish"
     },
-    "myProfile": {
-        "myTemplates": "My Templates",
-        "templates": "Templates",
-        "createTemplate": "Create Template",
-        "deleteTemplate": "Delete selected templates",
-        "myForms": "My Forms",
-        "forms": "forms",
-        "selectAll": "Select all"
-
+    "myProfile": "My Profile",
+    "login": "Log In",
+    "search": "Search templates..."
+  },
+  "myProfile": {
+    "myTemplates": "My Templates",
+    "templates": "Templates",
+    "createTemplate": "Create Template",
+    "deleteTemplate": "Delete selected templates",
+    "deleteTemplate?": "Are you sure you want to delete all the selected templates?",
+    "myForms": "My Forms",
+    "forms": "Forms",
+    "deleteForm": "Delete selected forms",
+    "deleteForm?": "Are you sure you want to delete all the selected forms?",
+    "selectAll": "Select all",
+    "templateT": "Template title",
+    "dateFilled": "Date filled"
+  },
+  "main": {
+    "latest": "Latest Templates",
+    "tags": "Tags cloud",
+    "mP": "Main Page"
+  },
+  "template": {
+    "create": "Create Template",
+    "edit": "Edit Template",
+    "title": "Title",
+    "fill": "Fill",
+    "image": "Image",
+    "saving": "Saving...",
+    "updating": "Updating...",
+    "save": "Save",
+    "update": "Update",
+    "comms": "Comments:",
+    "nC": "No comments yet",
+    "addC": "Add Comment",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "wC": "Write your comment...",
+    "by": "by ",
+    "access": {
+      "title": "Access: ",
+      "public": "Public",
+      "private": "Private",
+      "addAllowed": "Add allowed users",
+      "notAllowed": "You are not allowed to use this template",
+      "name": "Name",
+      "email": "Email",
+      "placeholderEmail": "Type user's email...",
+      "placeholderName": "Type user's name...",
+      "noAllowed": "No allowed users yet"
     },
-    "main": {
-        "latest": "Latest Templates"
+    "description": "Description",
+    "topic": {
+      "title": "Topic: ",
+      "select": "Select a topic",
+      "education": "Education",
+      "quiz": "Quiz",
+      "other": "Other",
+      "custom": "Custom topic"
+    },
+    "tags": {
+      "title": "Tags: ",
+      "delete": "(Click to delete)",
+      "placeholder": "Tag's name...",
+      "noTags": "No tags yet"
+    },
+    "questions": {
+      "title": "Questions: ",
+      "add": "Add question",
+      "edit": "Edit question you clicked",
+      "cancel": "(Click outside to cancel)",
+      "editB": "Edit",
+      "deleteB": "Delete",
+      "type": "Type",
+      "qTitle": "Title",
+      "description": "Description",
+      "show": "Show in table",
+      "save": "Save",
+      "addB": "Add",
+      "singleLine": "Single line answer",
+      "multi": "Multiline answer",
+      "int": "Numeric answer",
+      "check": "Yes or no answer",
+      "doubleClick": "(Double click to modify)"
     }
+  },
+  "form": {
+    "edit": "Edit",
+    "filledBy": "Filled by:",
+    "when": "When:",
+    "access": "Access:",
+    "allowed": "Allowed users:",
+    "noAdded": "No users added",
+    "desc": "Description",
+    "topic": "Topic: ",
+    "tags": "Tags:",
+    "nTags": "No tags",
+    "q": "Questions:",
+    "answer": "Answer",
+    "nA": "No answer",
+    "nQ": "No questions"
+  }
 }
