@@ -11,6 +11,7 @@ function FormSection({ title, loading, forms }) {
     key: "createdAt",
     direction: "desc",
   });
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -35,7 +36,7 @@ function FormSection({ title, loading, forms }) {
 
     try {
       const response = await axios.delete(
-        'http://localhost:5000/api/forms/delete',
+        `${SERVER_URL}/api/forms/delete`,
         {
           data: { formIds: selectedForms },
           withCredentials: true

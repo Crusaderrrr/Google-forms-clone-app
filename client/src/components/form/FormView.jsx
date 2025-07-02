@@ -13,13 +13,14 @@ function FormView({ questionTypes }) {
   const [loading, setLoading] = useState(true);
   const showEditButton = true;
   const navigate = useNavigate();
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     setLoading(true);
     async function fetchForm(formId) {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/forms/formInfo/${formId}`,
+          `${SERVER_URL}/api/forms/formInfo/${formId}`,
           { withCredentials: true }
         );
         if (response.status === 200) {

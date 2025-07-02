@@ -14,6 +14,7 @@ function SignupPage() {
   const [isUsernameValid, setIsUsernameValid] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
       setTheme('light')
@@ -41,7 +42,7 @@ function SignupPage() {
         return;
       }
 
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+      const response = await axios.post(`${SERVER_URL}/api/auth/signup`, {
         name: username,
         email: email,
         password: password

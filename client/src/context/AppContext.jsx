@@ -4,6 +4,7 @@ import default_profile_image from "../assets/default_profile_image.jpg";
 import axios from "axios";
 
 const AppContext = createContext();
+const SERVER_URL = import.meta.env.VITE_API_URL;
 
 function getStored(key, defaultValue) {
   const stored = localStorage.getItem(key);
@@ -44,7 +45,7 @@ export function AppProvider({ children }) {
     setLoadingContext(true);
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/me", {
+        const response = await axios.get(`${SERVER_URL}/api/auth/me`, {
           withCredentials: true,
         });
         const user = response.data.user;

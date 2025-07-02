@@ -15,6 +15,7 @@ function MyProfilePage() {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("templates");
   const { role, userId } = useApp();
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchTemplates = async () => {
@@ -25,7 +26,7 @@ function MyProfilePage() {
       } else {
         try {
           const response = await axios.get(
-            "http://localhost:5000/api/templates/myTemplates",
+            `${SERVER_URL}/api/templates/myTemplates`,
             {
               withCredentials: true,
             }
@@ -49,7 +50,7 @@ function MyProfilePage() {
         setLoading(false);
       } else {
         try {
-          const response = await axios.get("http://localhost:5000/api/forms", {
+          const response = await axios.get(`${SERVER_URL}/api/forms`, {
             withCredentials: true,
           });
           if (response.status === 200) {

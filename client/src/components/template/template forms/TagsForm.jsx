@@ -9,6 +9,7 @@ function TagsForm({ t, tags, setTags, handleDeleteTag, readOnly }) {
   const [inputValue, setInputValue] = useState("");
   const { theme } = useApp();
   const isDarkMode = theme !== "light";
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   const loadOptions = async (inputValue) => {
     if (!inputValue || inputValue.length < 2) {
@@ -16,7 +17,7 @@ function TagsForm({ t, tags, setTags, handleDeleteTag, readOnly }) {
     }
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/tags/search",
+        `${SERVER_URL}/api/tags/search`,
         {
           params: { q: inputValue },
           withCredentials: true,

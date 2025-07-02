@@ -7,6 +7,8 @@ import { useApp } from "../context/AppContext";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
+const SERVER_URL = import.meta.env.VITE_API_URL;
+
 const emptyTemplate = {
   id: "",
   title: "",
@@ -80,7 +82,7 @@ function TemplatePage() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/templates/${id}`,
+          `${SERVER_URL}/api/templates/${id}`,
           { withCredentials: true }
         );
         if (response.status === 200) {
@@ -117,7 +119,7 @@ function TemplatePage() {
     if (mode === "create") {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/templates/create",
+          `${SERVER_URL}/api/templates/create`,
           formData,
           {
             withCredentials: true,
@@ -138,7 +140,7 @@ function TemplatePage() {
     } else if (mode === "edit") {
       try {
         const response = await axios.put(
-          `http://localhost:5000/api/templates/${template.id}`,
+          `${SERVER_URL}/api/templates/${template.id}`,
           formData,
           {
             withCredentials: true,
@@ -164,7 +166,7 @@ function TemplatePage() {
       try {
         const templateId = template.id;
         const response = await axios.post(
-          "http://localhost:5000/api/forms/create",
+          `${SERVER_URL}/api/forms/create`,
           { templateId, answers },
           { withCredentials: true }
         );
@@ -188,7 +190,7 @@ function TemplatePage() {
       try {
         console.log(answers);
         const response = await axios.put(
-          `http://localhost:5000/api/forms/update`,
+          `${SERVER_URL}/api/forms/update`,
           { newAnswers: answers },
           { withCredentials: true }
         );

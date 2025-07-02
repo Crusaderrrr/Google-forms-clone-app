@@ -21,6 +21,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     setTheme("light");
@@ -42,7 +43,7 @@ function LoginPage() {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${SERVER_URL}/api/auth/login`,
         {
           email: email,
           password: password,
@@ -94,7 +95,7 @@ function LoginPage() {
   };
 
   const handleGuestSet = async () => {
-    const response = await axios.post("http://localhost:5000/api/auth/guest", {
+    const response = await axios.post(`${SERVER_URL}/api/auth/guest`, {
       guestState: true,
     });
 

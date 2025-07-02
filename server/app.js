@@ -21,7 +21,7 @@ require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extend: true }));
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CORS_ORIGIN,
     credentials: true
 }));
 app.use(

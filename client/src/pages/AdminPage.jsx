@@ -14,6 +14,7 @@ function AdminPage() {
   const { isAdmin, loadingContext, userId } = useApp();
   const navigate = useNavigate();
   const {t} = useTranslation();
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     console.log(isAdmin);
@@ -25,7 +26,7 @@ function AdminPage() {
   useEffect(() => {
     const fetchAndSetUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users", {
+        const response = await axios.get(`${SERVER_URL}/api/users`, {
           withCredentials: true,
         });
         if (response.status === 200) {
@@ -39,7 +40,7 @@ function AdminPage() {
     const fetchAndSetUserInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/users/${activeUserId}`,
+          `${SERVER_URL}/api/users/${activeUserId}`,
           {
             withCredentials: true,
           }
@@ -68,7 +69,7 @@ function AdminPage() {
   const handleMakeAdmin = async (ids) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/makeAdmin",
+        `${SERVER_URL}/api/users/makeAdmin`,
         { ids },
         { withCredentials: true }
       );
@@ -84,7 +85,7 @@ function AdminPage() {
   const handleRemoveAdmin = async (ids) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/removeAdmin",
+        `${SERVER_URL}/api/users/removeAdmin`,
         { ids, userId },
         { withCredentials: true }
       );
@@ -100,7 +101,7 @@ function AdminPage() {
   const handleBlockUsers = async (ids) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/block",
+        `${SERVER_URL}/api/users/block`,
         { ids },
         { withCredentials: true }
       );
@@ -116,7 +117,7 @@ function AdminPage() {
   const handleUnlockUsers = async (ids) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/unblock",
+        `${SERVER_URL}/api/users/unblock`,
         { ids },
         { withCredentials: true }
       );
@@ -132,7 +133,7 @@ function AdminPage() {
   const handleDeleteUsers = async (ids) => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/users/delete",
+        `${SERVER_URL}/api/users/delete`,
         {
           data: ids,
           withCredentials: true,

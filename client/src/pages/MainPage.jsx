@@ -12,6 +12,7 @@ function MainPage() {
   const [loading, setLoading] = useState(true);
   const [templates, setTemplates] = useState([]);
   const [tags, setTags] = useState([]);
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   const isMain = location.pathname === "/main";
 
@@ -20,7 +21,7 @@ function MainPage() {
     const fetchTemplates = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/templates/latest",
+          `${SERVER_URL}/api/templates/latest`,
           { withCredentials: true }
         );
 
@@ -37,7 +38,7 @@ function MainPage() {
 
     const fetchTags = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/tags/all");
+        const response = await axios.get(`${SERVER_URL}/api/tags/all`);
 
         if (response.status === 200) {
           setTags(response.data.tags);

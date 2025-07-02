@@ -12,7 +12,7 @@ function TemplateSection({ title, templates, loading, isMain }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("gallery");
-  const {isAdmin} = useApp();
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -40,7 +40,7 @@ function TemplateSection({ title, templates, loading, isMain }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/templates/delete",
+        `${SERVER_URL}/api/templates/delete`,
         { templateIds: selectedTemplates },
         { withCredentials: true }
       );

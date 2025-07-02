@@ -16,6 +16,7 @@ function AccessForm({
   const [selectedOption, setSelectedOption] = useState(null);
   const {theme} = useApp();
   const isDarkMode = theme !== 'light';
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   const loadOptions = async (inputValue, callback) => {
     if (inputValue.length < 2) {
@@ -24,7 +25,7 @@ function AccessForm({
     }
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/users/search",
+        `${SERVER_URL}/api/users/search`,
         {
           params: { q: inputValue, searchType },
           withCredentials: true,

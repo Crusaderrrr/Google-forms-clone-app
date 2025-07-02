@@ -15,6 +15,7 @@ function Navbar() {
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -57,7 +58,7 @@ function Navbar() {
     }
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/search/templates",
+        `${SERVER_URL}/api/search/templates`,
         {
           params: { q: inputValue },
           withCredentials: true,

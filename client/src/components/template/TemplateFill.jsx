@@ -30,6 +30,7 @@ function TemplateFill({
   const [answers, setAnswers] = useState(formAnswers || []);
   const { role, isAdmin, email, userId } = useApp();
   const navigate = useNavigate();
+  const SERVER_URL = import.meta.env.VITE_API_URL;
 
   let isAllowedUser = template.allowedUsers?.some(
     (user) => user.email === email
@@ -71,7 +72,7 @@ function TemplateFill({
   const handleAddComment = async (text) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/comments/submit",
+        `${SERVER_URL}/api/comments/submit`,
         {
           value: text,
           templateId: template.id,
@@ -100,7 +101,7 @@ function TemplateFill({
     if (isLiked) {
       // Unlike: send DELETE request
       try {
-        const response = await axios.delete("http://localhost:5000/api/likes/delete", {
+        const response = await axios.delete(`${SERVER_URL}/api/likes/delete`, {
           data: { templateId: template.id }, // 'data' is required for DELETE with axios
           withCredentials: true,
         });
@@ -113,7 +114,7 @@ function TemplateFill({
       // Like: send POST request
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/likes/submit",
+          `${SERVER_URL}/api/likes/submit`,
           { templateId: template.id },
           { withCredentials: true }
         );
