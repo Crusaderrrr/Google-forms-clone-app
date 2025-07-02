@@ -31,7 +31,7 @@ function TemplatePage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { role, userId } = useApp();
+  const { role, userId, isAdmin } = useApp();
   const topRef = useRef();
 
   const isCreate = location.pathname === "/template/create";
@@ -59,7 +59,7 @@ function TemplatePage() {
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
   const canEdit =
-    role === "admin" || Number(userId) === Number(template.authorId);
+    isAdmin === true || Number(userId) === Number(template.authorId);
   const questionTypes = {
     singleLine: t('template.questions.singleLine'),
     multiLine: t('template.questions.multi'),

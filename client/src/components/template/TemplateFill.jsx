@@ -98,7 +98,6 @@ function TemplateFill({
     if (isGuest) return;
 
     if (isLiked) {
-      // Unlike: send DELETE request
       try {
         const response = await axios.delete(`${SERVER_URL}/api/likes/delete`, {
           data: { templateId: template.id }, // 'data' is required for DELETE with axios
@@ -109,7 +108,6 @@ function TemplateFill({
         console.error("Error unliking:", err);
       }
     } else {
-      // Like: send POST request
       try {
         const response = await axios.post(
           `${SERVER_URL}/api/likes/submit`,
