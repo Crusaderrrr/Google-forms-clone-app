@@ -1,3 +1,5 @@
+const prisma = require('../prisma/prismaClient');
+
 const blocked = async (req, res, next) => {
   const { email } = req.body; 
   
