@@ -97,12 +97,14 @@ function Navbar() {
       }`}
     >
       <div className="container-fluid">
-        <NavLink
-          to="/main"
-          labelKey={t('navbar.theApp')}
-          icon={<i className="bi bi-house"></i>}
-          visible={true}
-        />
+        <ul className="navbar-nav me-auto mb-1 mg-lg-0 fs-4 fw-bold">
+          <NavLink
+            to="/main"
+            labelKey={t("navbar.theApp")}
+            icon={<i className="bi bi-house"></i>}
+            visible={true}
+          />
+        </ul>
         <button
           className="navbar-toggler"
           type="button"
