@@ -43,12 +43,10 @@ exports.createForm = async (req, res) => {
         .json({ message: "Unauthorized on creating a form" });
     }
   } catch (err) {
-    res
-      .status(500)
-      .json({
-        message: "Error occurred on creating a form",
-        error: err.message,
-      });
+    res.status(500).json({
+      message: "Error occurred on creating a form",
+      error: err.message,
+    });
   }
 };
 
@@ -78,12 +76,10 @@ exports.getFormInfo = async (req, res) => {
         .json({ message: "Unauthorized on fetching a form" });
     }
   } catch (err) {
-    res
-      .status(500)
-      .json({
-        message: "Error occurred on fetching a formInfo",
-        error: err.message,
-      });
+    res.status(500).json({
+      message: "Error occurred on fetching a formInfo",
+      error: err.message,
+    });
   }
 };
 
@@ -110,12 +106,10 @@ exports.getAllForms = async (req, res) => {
         .json({ message: "Unauthorized on fetching all forms" });
     }
   } catch (err) {
-    res
-      .status(500)
-      .json({
-        message: "Error occurred on fetching a formInfo",
-        error: err.message,
-      });
+    res.status(500).json({
+      message: "Error occurred on fetching a formInfo",
+      error: err.message,
+    });
   }
 };
 

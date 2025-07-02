@@ -5,7 +5,7 @@ exports.submitLike = async (req, res) => {
     const { templateId } = req.body;
     const authorId = req.session.user.id;
 
-    if (!authorId && req.session.role === 'guest') {
+    if (!authorId && req.session.role === "guest") {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
@@ -38,7 +38,7 @@ exports.deleteLike = async (req, res) => {
   try {
     const { templateId } = req.body;
     const authorId = req.session.user.id;
-    if (!authorId && req.session.role === 'guest') {
+    if (!authorId && req.session.role === "guest") {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
@@ -51,6 +51,8 @@ exports.deleteLike = async (req, res) => {
 
     res.status(200).json({ message: "Like removed" });
   } catch (err) {
-    res.status(500).json({ message: "Error deleting like", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting like", error: err.message });
   }
 };

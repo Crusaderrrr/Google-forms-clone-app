@@ -194,12 +194,12 @@ exports.getTemplateById = async (req, res) => {
         questions: true,
         author: true,
         allowedUsers: true,
-        comments: { 
+        comments: {
           include: {
-            author: { select: { id: true, name: true }}
-          }},
-        likes: true 
-
+            author: { select: { id: true, name: true } },
+          },
+        },
+        likes: true,
       },
     });
     if (!template) {
@@ -326,7 +326,9 @@ exports.searchTemplates = async (req, res) => {
               some: { description: { contains: q, mode: "insensitive" } },
             },
           },
-          { comments: { some: { value: { contains: q, mode: 'insensitive' } } } },
+          {
+            comments: { some: { value: { contains: q, mode: "insensitive" } } },
+          },
         ],
       },
       include: {
