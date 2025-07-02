@@ -57,13 +57,10 @@ function Navbar() {
       return;
     }
     try {
-      const response = await axios.get(
-        `${SERVER_URL}/api/search/templates`,
-        {
-          params: { q: inputValue },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get(`${SERVER_URL}/api/search/templates`, {
+        params: { q: inputValue },
+        withCredentials: true,
+      });
 
       const options = response.data.map((template) => ({
         value: template.id,
@@ -100,9 +97,12 @@ function Navbar() {
       }`}
     >
       <div className="container-fluid">
-        <a className="navbar-brand mx-3" href="/main">
-          {t("navbar.theApp")}
-        </a>
+        <NavLink
+          to="/main"
+          labelKey={t('navbar.theApp')}
+          icon={<i className="bi bi-house"></i>}
+          visible={true}
+        />
         <button
           className="navbar-toggler"
           type="button"
