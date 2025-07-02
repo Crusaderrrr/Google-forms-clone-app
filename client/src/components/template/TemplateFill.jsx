@@ -88,7 +88,6 @@ function TemplateFill({
           author: response.data.author?.name,
         },
       ]);
-      window.location.reload();
     } catch (error) {
       console.error("Failed to add comment:", error);
     }
@@ -106,7 +105,6 @@ function TemplateFill({
           withCredentials: true,
         });
         setLikes(likes.filter((like) => like.authorId !== userId));
-        window.location.reload();
       } catch (err) {
         console.error("Error unliking:", err);
       }
@@ -126,7 +124,6 @@ function TemplateFill({
             templateId: template.id,
           },
         ]);
-        window.location.reload();
       } catch (err) {
         console.error("Error liking:", err);
       }

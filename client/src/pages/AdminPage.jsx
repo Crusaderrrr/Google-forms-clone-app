@@ -75,7 +75,6 @@ function AdminPage() {
       );
       if (response.status === 200) {
         setUsers(response.data.users);
-        window.location.reload();
       }
     } catch (err) {
       console.error(err);
@@ -91,7 +90,6 @@ function AdminPage() {
       );
       if (response.status === 200) {
         setUsers(response.data.users);
-        window.location.reload();
       }
     } catch (err) {
       console.error(err);
@@ -107,7 +105,6 @@ function AdminPage() {
       );
       if (response.status === 200) {
         setUsers(response.data.users);
-        window.location.reload();
       }
     } catch (err) {
       console.error(err);
@@ -123,7 +120,6 @@ function AdminPage() {
       );
       if (response.status === 200) {
         setUsers(response.data.users);
-        window.location.reload();
       }
     } catch (err) {
       console.error(err);
@@ -141,7 +137,6 @@ function AdminPage() {
       );
       if (response.status === 200) {
         setUsers(response.data.users);
-        window.location.reload();
       }
     } catch (err) {
       console.error(err);

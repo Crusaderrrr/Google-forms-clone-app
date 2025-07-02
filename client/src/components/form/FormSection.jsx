@@ -44,7 +44,6 @@ function FormSection({ title, loading, forms }) {
       );
       if (response.status === 200) {
         setSelectedForms([]);
-        window.location.reload();
       }
     } catch (err) {
       console.error(err);
