@@ -5,7 +5,6 @@ import "../../style/CardHover.css";
 import axios from "axios";
 import TemplateGallery from "./TemplateGallery";
 import TemplateTable from "./TemplateTable";
-import { useApp } from "../../context/AppContext";
 
 function TemplateSection({ title, templates, loading, isMain }) {
   const [selectedTemplates, setSelectedTemplates] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import background_image from "../assets/background_image.webp";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useApp } from "../context/AppContext";
+import { useApp } from "../context/AppContext.js";
 
 function LoginPage() {
   const navigate = useNavigate();

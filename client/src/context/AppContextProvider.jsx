@@ -3,7 +3,7 @@ import i18n from "../i18n";
 import default_profile_image from "../assets/default_profile_image.jpg";
 import axios from "axios";
 
-const AppContext = createContext();
+export const AppContext = createContext();
 const SERVER_URL = import.meta.env.VITE_API_URL;
 
 function getStored(key, defaultValue) {
@@ -49,7 +49,6 @@ export function AppProvider({ children }) {
           withCredentials: true,
         });
         const user = response.data.user;
-        console.log(user);
         setRole(user.role);
         setIsAdmin(user.isAdmin);
         setIsBlocked(user.isBlocked);
@@ -105,8 +104,4 @@ export function AppProvider({ children }) {
       {children}
     </AppContext.Provider>
   );
-}
-
-export function useApp() {
-  return useContext(AppContext);
 }

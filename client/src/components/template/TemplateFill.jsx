@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useApp } from "../../context/AppContext";
+import { useApp } from "../../context/AppContext.js";
 import { useNavigate } from "react-router-dom";
 import Comments from "./template forms/Comments";
 import Likes from "./template forms/Likes";

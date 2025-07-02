@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useApp } from '../context/AppContext'
+import { useApp } from '../context/AppContext.js'
 
 function MyProfileInfo () {
     const {email, name, profileImg} = useApp();

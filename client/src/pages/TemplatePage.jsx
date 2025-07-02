@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Template from "../components/template/Template";
 import TemplateFill from "../components/template/TemplateFill";
 import FormView from "../components/form/FormView";
-import { useApp } from "../context/AppContext";
+import { useApp } from "../context/AppContext.js";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 

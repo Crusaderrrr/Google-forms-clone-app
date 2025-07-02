@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useApp } from "../../../context/AppContext";
+import { useApp } from "../../../context/AppContext.js";
 import { useTranslation } from "react-i18next";
 
 function Comments({ comments = [], readOnly = false, onAddComment }) {

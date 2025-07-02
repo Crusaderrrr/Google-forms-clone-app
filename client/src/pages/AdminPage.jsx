@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserTable from "../components/UserTable";
 import UserProfile from "../components/UserProfile";
 import axios from "axios";
-import { useApp } from "../context/AppContext";
+import { useApp } from "../context/AppContext.js";
 import { useTranslation } from "react-i18next";
 
 function AdminPage() {

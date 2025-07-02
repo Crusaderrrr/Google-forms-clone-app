@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import AsyncCreatableSelect from "react-select/async-creatable";
-import { useApp } from "../../../context/AppContext";
+import { useApp } from "../../../context/AppContext.js";
 
 function TagsForm({ t, tags, setTags, handleDeleteTag, readOnly }) {
   const [selectedOption, setSelectedOption] = useState("");

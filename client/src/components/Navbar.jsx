@@ -1,5 +1,5 @@
 import React from "react";
-import { useApp } from "../context/AppContext";
+import { useApp } from "../context/AppContext.js";
 import NavLink from "./NavLink";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
