@@ -63,11 +63,11 @@ function MainPage() {
       <div className="container-fluid mt-5">
         <div className="row justify-content-center">
           <div className="col-md-8">
-            <h4 className="display-5 mb-3">{t("main.latest")}</h4>
             <TemplateSection
               templates={templates}
               isMain={isMain}
               loading={loading}
+              title={t('main.latest')}
             />
             <hr className="my-4" />
             <h4 className="display-5 mb-4">{t('main.tags')}</h4>

@@ -123,8 +123,7 @@ exports.deleteForms = async (req, res) => {
   try {
     const { formIds } = req.body;
     const userId = req.session.user.id;
-    const isAdmin = req.session.user.role === "admin";
-    console.log(req.session.user);
+    const isAdmin = req.session.user.isAdmin;
     if (
       !Array.isArray(formIds) ||
       formIds.length === 0 ||

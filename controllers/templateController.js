@@ -25,7 +25,6 @@ exports.getAllTemplates = async (req, res) => {
         .json({ message: "Unauthorized on fetching templates" });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json({
       message: "Error during fetching all templates",
       error: err.message,
@@ -211,7 +210,6 @@ exports.getTemplateById = async (req, res) => {
       .status(401)
       .json({ message: "Unauthorized on fetching template" });
   } catch (err) {
-    console.error("error during template fetch", err);
     res
       .status(500)
       .json({ message: "Error fetching template", error: err.message });
@@ -304,7 +302,6 @@ exports.updateTemplate = async (req, res) => {
         .json({ message: "Unauthorized on updating template" });
     }
   } catch (err) {
-    console.error("Update error:", err);
     res
       .status(500)
       .json({ message: "Error when updating template", error: err.message });

@@ -6,7 +6,7 @@ import { useApp } from '../context/AppContext'
 
 function SignupPage() {
   const navigate = useNavigate();
-  const {setRole, setTheme, email, setEmail, setName} = useApp();
+  const {setRole, setTheme, email, setEmail, setName, setIsBlocked, setIsAdmin} = useApp();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [username, setUsername] = useState('');
@@ -47,7 +47,10 @@ function SignupPage() {
         password: password
       }, { withCredentials: true });
       if (response.status === 201) {
+        console.log(response.status, response.data);
         setRole('user');
+        setIsAdmin(false);
+        setIsBlocked(false);
         setEmail(email);
         setName(username);
         navigate('/main');

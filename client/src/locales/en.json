@@ -4,7 +4,8 @@
     "language": "Language",
     "langDropdown": {
       "English": "English",
-      "Spanish": "Spanish"
+      "Spanish": "Spanish",
+      "Russian": "Russian"
     },
     "myProfile": "My Profile",
     "login": "Log In",
@@ -28,6 +29,23 @@
     "latest": "Latest Templates",
     "tags": "Tags cloud",
     "mP": "Main Page"
+  },
+  "admin": {
+    "manage": "Manage Users",
+    "giveA": "Give admin rights",
+    "remA": "Remove admin rights",
+    "block": "Block user",
+    "unblock": "Unblock user",
+    "del": "Delete user",
+    "stat": "User status",
+    "bStat": "Blocked status",
+    "user": "User",
+    "admin": "Admin",
+    "blocked": "Blocked",
+    "nBlocked": "Not blocked",
+    "uM": "User management",
+    "templates": "User's templates",
+    "forms": "User's forms"
   },
   "template": {
     "create": "Create Template",

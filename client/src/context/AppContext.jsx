@@ -1,60 +1,111 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import i18n from '../i18n';
-import default_profile_image from '../assets/default_profile_image.jpg';
+import i18n from "../i18n";
+import default_profile_image from "../assets/default_profile_image.jpg";
+import axios from "axios";
 
 const AppContext = createContext();
 
 function getStored(key, defaultValue) {
-    const stored = localStorage.getItem(key);
-    return stored !== null ? stored : defaultValue;
+  const stored = localStorage.getItem(key);
+  return stored !== null ? stored : defaultValue;
 }
 
 export function AppProvider({ children }) {
-    const [role, setRole] = useState(() => getStored('role', 'guest'));
-    const [name, setName] = useState(() => getStored('name', ''));
-    const [email, setEmail] = useState(() => getStored('email', ''));
-    const [userId, setUserId] = useState(() => getStored('userId', ''))
-    const [profileImg, setProfileImg] = useState(() =>
-        getStored('profileImg', default_profile_image)
-    );
-    const [theme, setTheme] = useState(() => getStored('theme', 'light'));
-    const [language, setLanguage] = useState(() => getStored('language', 'en'));
-    const [loading, setLoading] = useState(false); 
+  const [role, setRole] = useState(() => getStored("role", "guest"));
+  const [profileImg, setProfileImg] = useState(() =>
+    getStored("profileImg", default_profile_image)
+  );
+  const [theme, setTheme] = useState(() => getStored("theme", "light"));
+  const [language, setLanguage] = useState(() => getStored("language", "en"));
 
-    useEffect(() => {
-        localStorage.setItem('role', role);
-        localStorage.setItem('name', name);
-        localStorage.setItem('email', email);
-        localStorage.setItem('profileImg', profileImg);
-        localStorage.setItem('userId', userId);
-    }, [role, name, email, profileImg, userId]);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
+  const [loadingContext, setLoadingContext] = useState(true);
 
-    useEffect(() => {
-        localStorage.setItem('theme', theme);
-        document.documentElement.setAttribute("data-bs-theme", theme);
-    }, [theme]);
+  useEffect(() => {
+    localStorage.setItem("role", role);
+    localStorage.setItem("profileImg", profileImg);
+  }, [role, profileImg]);
 
-    useEffect(() => {
-        localStorage.setItem('language', language);
-        i18n.changeLanguage(language);
-    }, [language]);
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-bs-theme", theme);
+  }, [theme]);
 
-    return (
-        <AppContext.Provider value={{
-            role, setRole,
-            loading,
-            theme, setTheme,
-            language, setLanguage,
-            email, setEmail,
-            name, setName,
-            userId, setUserId,
-            profileImg, setProfileImg
-        }}>
-            {children}
-        </AppContext.Provider>
-    );
+  useEffect(() => {
+    localStorage.setItem("language", language);
+    i18n.changeLanguage(language);
+  }, [language]);
+
+  useEffect(() => {
+    setLoadingContext(true);
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/auth/me", {
+          withCredentials: true,
+        });
+        const user = response.data.user;
+        console.log(user);
+        setRole(user.role);
+        setIsAdmin(user.isAdmin);
+        setIsBlocked(user.isBlocked);
+        setName(user.name);
+        setEmail(user.email);
+        setUserId(user.id);
+      } catch (err) {
+        setRole("guest");
+        setIsAdmin(false);
+        setIsBlocked(false);
+        setName("");
+        setEmail("");
+        setUserId("");
+        console.error(err);
+      } finally {
+        setLoadingContext(false);
+      }
+    };
+    fetchUser();
+  }, [
+    setRole,
+    setIsAdmin,
+    setIsBlocked,
+    setName,
+    setEmail,
+    setUserId
+  ]);
+
+  return (
+    <AppContext.Provider
+      value={{
+        role,
+        setRole,
+        isBlocked,
+        setIsBlocked,
+        loadingContext,
+        isAdmin,
+        setIsAdmin,
+        theme,
+        setTheme,
+        language,
+        setLanguage,
+        email,
+        setEmail,
+        name,
+        setName,
+        userId,
+        setUserId,
+        profileImg,
+        setProfileImg,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export function useApp() {
-    return useContext(AppContext);
+  return useContext(AppContext);
 }

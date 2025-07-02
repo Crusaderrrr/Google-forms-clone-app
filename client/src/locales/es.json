@@ -4,7 +4,8 @@
     "language": "Idioma",
     "langDropdown": {
       "English": "Inglés",
-      "Spanish": "Español"
+      "Spanish": "Español",
+      "Russian": "Ruso"
     },
     "myProfile": "Mi Perfil",
     "login": "Iniciar Sesión",
@@ -28,6 +29,23 @@
     "latest": "Últimas Plantillas",
     "tags": "Nube de etiquetas",
     "mP": "Página Principal"
+  },
+  "admin": {
+    "manage": "Administrar Usuarios",
+    "giveA": "Dar derechos de administrador",
+    "remA": "Quitar derechos de administrador",
+    "block": "Bloquear usuario",
+    "unblock": "Desbloquear usuario",
+    "del": "Eliminar usuario",
+    "stat": "Estado de usuario",
+    "bStat": "Bloqueado",
+    "user": "Usuario",
+    "admin": "Administrador",
+    "blocked": "Bloqueado",
+    "nBlocked": "No bloqueado",
+    "uM": "Administración de usuarios",
+    "templates": "Plantillas del usuario",
+    "forms": "Formularios del usuario"
   },
   "template": {
     "create": "Crear Plantilla",

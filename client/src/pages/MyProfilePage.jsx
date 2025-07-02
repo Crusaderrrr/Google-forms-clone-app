@@ -4,7 +4,6 @@ import FormSection from "../components/form/FormSection";
 import TemplateSection from "../components//template/TemplateSection";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import test_img from "../assets/background_image.webp";
 import axios from "axios";
 import { useApp } from "../context/AppContext";
 

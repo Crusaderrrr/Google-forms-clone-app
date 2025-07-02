@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Navbar() {
-  const { role, theme, setTheme, language, setLanguage } = useApp();
+  const { role, theme, setTheme, language, setLanguage, isAdmin } = useApp();
   const { t, i18n } = useTranslation();
   const isDarkMode = theme !== "light";
   const [selectedOption, setSelectedOption] = useState("");
@@ -87,7 +87,7 @@ function Navbar() {
 
   const handleChange = (option) => {
     setSelectedOption(option);
-    navigate(`/template/${option.id}`, { state: { mode: 'view' } })
+    navigate(`/template/${option.id}`, { state: { mode: "view" } });
     setSelectedOption("");
     setOptions([]);
   };
@@ -156,6 +156,15 @@ function Navbar() {
                     {t("navbar.langDropdown.Spanish")}
                   </a>
                 </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => changeLanguage("ru")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {t("navbar.langDropdown.Russian")}
+                  </a>
+                </li>
               </ul>
             </li>
             <NavLink
@@ -169,6 +178,12 @@ function Navbar() {
               labelKey={t("navbar.login")}
               icon={<i className="bi bi-person"></i>}
               visible={role === "guest"}
+            />
+            <NavLink
+              to="/admin"
+              labelKey="Admin"
+              icon={<i className="bi bi-gear"></i>}
+              visible={isAdmin === true}
             />
           </ul>
           <form className="d-flex">
@@ -187,12 +202,12 @@ function Navbar() {
                   ...theme,
                   colors: {
                     ...theme.colors,
-                    neutral0: isDarkMode ? "#23272f" : "#fff",  
-                    neutral80: isDarkMode ? "#f3f4f6" : "#333", 
+                    neutral0: isDarkMode ? "#23272f" : "#fff",
+                    neutral80: isDarkMode ? "#f3f4f6" : "#333",
                     primary25: isDarkMode ? "#2d3748" : "#f0f0f0",
-                    primary: isDarkMode ? "#90cdf4" : "#2684ff", 
-                    neutral20: isDarkMode ? "#4a5568" : "#ccc", 
-                    neutral30: isDarkMode ? "#718096" : "#aaa", 
+                    primary: isDarkMode ? "#90cdf4" : "#2684ff",
+                    neutral20: isDarkMode ? "#4a5568" : "#ccc",
+                    neutral30: isDarkMode ? "#718096" : "#aaa",
                     neutral10: isDarkMode ? "#23272f" : "#fff",
                   },
                 })}

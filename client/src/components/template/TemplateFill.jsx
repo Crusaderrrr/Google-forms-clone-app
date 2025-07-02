@@ -28,7 +28,7 @@ function TemplateFill({
   buttonLoading,
 }) {
   const [answers, setAnswers] = useState(formAnswers || []);
-  const { role, email, userId } = useApp();
+  const { role, isAdmin, email, userId } = useApp();
   const navigate = useNavigate();
 
   let isAllowedUser = template.allowedUsers?.some(
@@ -37,7 +37,6 @@ function TemplateFill({
   const isPrivate = template.access === "private";
   const isPublic = template.access === "public";
   const isGuest = role === "guest";
-  let isAdmin = role === "admin";
   let isAuthor = String(template.authorId) === String(userId);
   if (
     (isGuest && isAuthor) ||
@@ -46,7 +45,6 @@ function TemplateFill({
   ) {
     isAuthor = false;
     isAllowedUser = false;
-    isAdmin = false;
   }
 
   const handleInputChange = (qId, value) => {

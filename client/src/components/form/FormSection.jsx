@@ -62,6 +62,7 @@ function FormSection({ title, loading, forms }) {
       </div>
     );
   }
+
   const sortedForms = [...forms].sort((a, b) => {
     let aValue, bValue;
 

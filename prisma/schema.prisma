@@ -54,7 +54,7 @@ model Comment {
   templateId Int
   authorId   Int
   author     User     @relation(fields: [authorId], references: [id])
-  template   Template @relation(fields: [templateId], references: [id])
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
 
 model Like {
@@ -62,7 +62,7 @@ model Like {
   authorId   Int
   templateId Int
   author     User     @relation(fields: [authorId], references: [id])
-  template   Template @relation(fields: [templateId], references: [id])
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
 }
 
 model Tag {

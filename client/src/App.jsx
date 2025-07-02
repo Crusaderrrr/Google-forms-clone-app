@@ -6,6 +6,8 @@ import MainPage from "./pages/MainPage";
 import LayoutWithNavbar from "./components/LayoutWithNavbar";
 import MyProfilePage from "./pages/MyProfilePage";
 import TemplatePage from "./pages/TemplatePage";
+import AdminPage from "./pages/AdminPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -14,10 +16,17 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route element={<LayoutWithNavbar />}>
+        <Route
+          element={
+            <ProtectedRoute>
+              <LayoutWithNavbar />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/main" element={<MainPage />} />
           <Route path="/myProfile" element={<MyProfilePage />} />
           <Route path="/template/create" element={<TemplatePage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route
             path="/template/:id"
             element={
