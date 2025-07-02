@@ -173,7 +173,7 @@ function TemplateFill({
     <div className="container-lg my-5">
       {/* Title */}
       <h1 className="text-center mb-4 d-inline me-4">{template.title}</h1>
-      {showEditButton && (
+      {(showEditButton || isAdmin) && (
         <>
           <button
             className="btn btn-info d-inline text-end mb-3 me-2"
