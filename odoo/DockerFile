@@ -1,0 +1,3 @@
+FROM odoo:17.0
+
+RUN pip install psycopg2-binary

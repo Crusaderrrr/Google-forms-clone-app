@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  # This service defines the PostgreSQL database container
+  db:
+    image: postgres:15
+    container_name: odoo_db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    restart: always
+
+  # This service defines the Odoo application container
+  odoo:
+    # This tells Docker to build a custom image using the Dockerfile
+    # in the current directory (to install psycopg2).
+    build: .
+    container_name: odoo_app
+    depends_on:
+      - db
+    ports:
+      - "8069:8069" # Maps your computer's port 8069 to the container's port 8069
+    volumes:
+      - ./config:/etc/odoo # Mounts your config folder
+      - ./addons:/mnt/extra-addons # Mounts your addons folder
+    restart: always
+
+volumes:
+  odoo-db-data:

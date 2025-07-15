@@ -1,0 +1,56 @@
+<odoo>
+    <!-- 1. The Form View (for viewing one template's details) -->
+    <record id="view_form_api_template_form" model="ir.ui.view">
+        <field name="name">form.api.template.form</field>
+        <field name="model">form.api.template</field>
+        <field name="arch" type="xml">
+            <form string="Form Template">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <field name="author_name"/>
+                        <field name="external_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Questions &amp; Results">
+                            <field name="question_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="question_type"/>
+                                    <field name="answer_count" sum="Total Answers"/>
+                                    <field name="average_value" attrs="{'column_invisible': [('question_type', '!=', 'integer')]}"/>
+                                    <field name="min_value" attrs="{'column_invisible': [('question_type', '!=', 'integer')]}"/>
+                                    <field name="max_value" attrs="{'column_invisible': [('question_type', '!=', 'integer')]}"/>
+                                    <field name="popular_answers" attrs="{'column_invisible': [('question_type', '=', 'integer')]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 2. The List/Tree View -->
+    <record id="view_form_api_template_tree" model="ir.ui.view">
+        <field name="name">form.api.template.tree</field>
+        <field name="model">form.api.template</field>
+        <field name="arch" type="xml">
+            <tree string="Form Templates">
+                <field name="name"/>
+                <field name="author_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 3. The Action that opens these views -->
+    <record id="action_form_api_template" model="ir.actions.act_window">
+        <field name="name">Imported Templates</field>
+        <field name="res_model">form.api.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- 4. The Menu Items -->
+    <menuitem id="menu_form_api_root" name="Form API" sequence="10"/>
+    <menuitem id="menu_form_api_template" name="Imported Templates" parent="menu_form_api_root" action="action_form_api_template" sequence="10"/>
+</odoo>

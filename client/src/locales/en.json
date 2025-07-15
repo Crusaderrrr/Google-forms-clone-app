@@ -23,7 +23,8 @@
     "deleteForm?": "Are you sure you want to delete all the selected forms?",
     "selectAll": "Select all",
     "templateT": "Template title",
-    "dateFilled": "Date filled"
+    "dateFilled": "Date filled",
+    "crm": "Create CRM Profile"
   },
   "main": {
     "latest": "Latest Templates",

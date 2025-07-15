@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -9,6 +10,9 @@ const tags = require("./routes/tags");
 const comments = require("./routes/comments");
 const likes = require("./routes/likes");
 const templateSearch = require("./routes/templateSearch");
+const sf = require("./routes/salesforce");
+const jwt = require("./routes/jwt");
+const odoo = require("./routes/odoo");
 const session = require("express-session");
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
@@ -16,10 +20,9 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-require("dotenv").config();
 
 app.use(express.json());
-app.use(express.urlencoded({ extend: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
@@ -54,6 +57,9 @@ app.use("/api/tags", tags);
 app.use("/api/search", templateSearch);
 app.use("/api/comments", comments);
 app.use("/api/likes", likes);
+app.use("/api/sf", sf);
+app.use("/api/jwt", jwt);
+app.use("/api/odoo", odoo);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

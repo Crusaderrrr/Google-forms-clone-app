@@ -23,7 +23,8 @@
     "deleteForm?": "¿Está seguro de que desea eliminar todas las formularios seleccionados?",
     "selectAll": "Eligir todo",
     "templateT": "Título de la plantilla",
-    "dateFilled": "Fecha de llenado"
+    "dateFilled": "Fecha de llenado",
+    "crm": "Crear Perfil CRM"
   },
   "main": {
     "latest": "Últimas Plantillas",
