@@ -1,2 +1,4 @@
+setuptools>=40.0
+wheel>=0.30.0
 psycopg2-binary
 requests
