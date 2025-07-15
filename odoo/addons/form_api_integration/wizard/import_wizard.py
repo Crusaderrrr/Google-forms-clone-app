@@ -13,7 +13,7 @@ class ImportWizard(models.TransientModel):
         
         # --- IMPORTANT: Change this URL to your API's address ---
         # If running locally, use the Ngrok URL for your Express API
-        api_url = "http://host.docker.internal:5000/api/odoo/get-templates" 
+        api_url = "https://google-forms-clone-app.onrender.com/api/odoo/get-templates" 
         headers = {'Authorization': f'Bearer {self.api_token}'}
 
         try:
