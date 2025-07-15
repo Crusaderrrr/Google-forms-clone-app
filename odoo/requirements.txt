@@ -1,3 +1,2 @@
-odoo
 psycopg2-binary
-gunicorn
+requests
