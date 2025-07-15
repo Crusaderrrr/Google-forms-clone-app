@@ -11,14 +11,12 @@ class ImportWizard(models.TransientModel):
     def action_import_data(self):
         self.ensure_one()
         
-        # --- IMPORTANT: Change this URL to your API's address ---
-        # If running locally, use the Ngrok URL for your Express API
         api_url = "https://google-forms-clone-app.onrender.com/api/odoo/get-templates" 
         headers = {'Authorization': f'Bearer {self.api_token}'}
 
         try:
             response = requests.get(api_url, headers=headers, timeout=20)
-            response.raise_for_status() # Raises an error for 4xx or 5xx responses
+            response.raise_for_status() 
         except requests.exceptions.HTTPError as e:
             raise UserError(f"API Error: {e.response.status_code} - {e.response.text}")
         except requests.exceptions.RequestException as e:
@@ -66,5 +64,4 @@ class ImportWizard(models.TransientModel):
             if questions_to_create:
                 Question.create(questions_to_create)
         
-        # After import, refresh the view to show the new data
         return { 'type': 'ir.actions.client', 'tag': 'reload' }
