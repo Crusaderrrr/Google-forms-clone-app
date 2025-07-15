@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: odoo-app
+    env: docker
+    dockerfilePath: ./odoo/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://odoo_db_hha7_user:nPJC6LWUPLShn3gCufxMB4z9jyx4aP3M@dpg-d1r7ndili9vc7396483g-a.frankfurt-postgres.render.com:5432/odoo_db_hha7
+      - key: ODOO_MASTER_PASSWORD
+        value: MySecurePassword123!
