@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwtMiddleware = require("../middleware/jwtMiddleware");
+const prisma = require('../prisma/prismaClient');
 
 router.get("/get-templates", jwtMiddleware, async (req, res) => {
   console.log("External api reached");
